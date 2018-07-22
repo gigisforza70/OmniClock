@@ -65,7 +65,7 @@
   <string name="entry_thirty_secs">30秒</string>
   <string name="pre_alarm_dismiss_all_summary">アクティブな事前アラームを解除するとメインアラームも解除されます</string>
   <string name="pre_alarm_dismiss_all_title">全て解除</string>
-  <string name="fallback_ringtone">既定</string>
+  <string name="fallback_ringtone">デフォルト</string>
   <string name="ringtone_unknown">不明な着信音</string>
   <string name="entry_one_minute">1分</string>
   <string name="entry_three_minute">3分</string>
@@ -99,7 +99,7 @@
   <string name="timer_alarm_title">着信音</string>
   <string name="timer_alarm_custom_title">カスタムタイマー着信音</string>
   <string name="week_start_title">週の開始日</string>
-  <string name="default_week_start">ロケールの既定</string>
+  <string name="default_week_start">ロケールのデフォルト値</string>
   <string name="clone_alarm">アラームをコピー</string>
   <string name="storage_title">ストレージ：</string>
   <string name="folders_scanning">スキャン中\u2026</string>
@@ -145,7 +145,7 @@
   <string name="alarm_uri_unkown">（削除済）</string>
   <string name="choose_folder">選択</string>
   <string name="musicType">音楽</string>
-  <string name="no_alarm_sound_hint">システム設定で既定のアラーム着信音は設定されていません</string>
+  <string name="no_alarm_sound_hint">システム設定でデフォルトのアラーム着信音は設定されていません</string>
   <string name="tile_create_alarm">アラーム</string>
   <string name="make_screen_dark_summary">アラームがアクティブな時に画面が暗くなっている場合</string>
   <string name="make_screen_dark_title">画面を暗転</string>
@@ -155,7 +155,7 @@
   <string name="vibrate_notification_summary">アクティブなアラームとタイマー通知の振動を有効にする</string>
   <string name="vibrate_notification_title">通知の振動</string>
   <string name="all_cities_label">追加</string>
-  <string name="default_page_title">既定のスタートページ</string>
+  <string name="default_page_title">デフォルトのスタートページ</string>
   <string name="global_settings">グローバル</string>
   <string name="local_query_playlist">プレイリスト</string>
   <string name="url_paste_hint">URLの貼り付け</string>
