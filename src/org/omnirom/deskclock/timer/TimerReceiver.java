@@ -256,7 +256,12 @@ public class TimerReceiver extends BroadcastReceiver {
         PendingIntent p = PendingIntent.getBroadcast(context,
                 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
         if (t != null) {
-            mngr.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
+            if (Utils.isMOrLater()) {
+                // Ensure the alarm fires even if the device is dozing.
+                mngr.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
+            } else {
+                mngr.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
+            }
             if (Timers.LOGGING) {
                 Log.d(TAG, "Setting times up to " + nextTimesup);
             }
@@ -381,7 +386,12 @@ public class TimerReceiver extends BroadcastReceiver {
                 PendingIntent.getBroadcast(context, 0, nextBroadcast, 0);
         AlarmManager alarmManager =
                 (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextBroadcastTime, pendingNextBroadcast);
+        if (Utils.isMOrLater()) {
+            // Ensure the alarm fires even if the device is dozing.
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextBroadcastTime, pendingNextBroadcast);
+        } else {
+            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextBroadcastTime, pendingNextBroadcast);
+        }
     }
 
     private static void showCollapsedNotificationOld(final Context context, TimerObj timer, String title, String text,
