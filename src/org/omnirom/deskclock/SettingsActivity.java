@@ -81,6 +81,8 @@ public class SettingsActivity extends PreferenceActivity
             "flip_action_setting";
     public static final String KEY_ALARM_SNOOZE_COUNT =
             "snooze_count";
+    public static final String KEY_WAVE_ACTION =
+            "wave_action_setting";
     public static final String KEY_SHAKE_ACTION =
             "shake_action_setting";
     public static final String KEY_KEEP_SCREEN_ON =
@@ -255,6 +257,10 @@ public class SettingsActivity extends PreferenceActivity
             final ListPreference listPref = (ListPreference) pref;
             final int idx = listPref.findIndexOfValue((String) newValue);
             listPref.setSummary(listPref.getEntries()[idx]);
+        } else if (KEY_WAVE_ACTION.equals(pref.getKey())) {
+            final ListPreference listPref = (ListPreference) pref;
+            final int idx = listPref.findIndexOfValue((String) newValue);
+            listPref.setSummary(listPref.getEntries()[idx]);
         } else if (KEY_VOLUME_INCREASE_SPEED.equals(pref.getKey())) {
             final ListPreference listPref = (ListPreference) pref;
             final int idx = listPref.findIndexOfValue((String) newValue);
@@ -335,6 +341,7 @@ public class SettingsActivity extends PreferenceActivity
         final SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         final boolean hasAccelSensor = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).size() >= 1;
         final boolean hasOrientationSensor = sensorManager.getSensorList(Sensor.TYPE_ORIENTATION).size() >= 1;
+        final boolean hasProxiSensor = sensorManager.getSensorList(Sensor.TYPE_PROXIMITY).size() >= 1;
         final PreferenceCategory alarmCategory = (PreferenceCategory) findPreference(
                         KEY_FULLSCREEN_ALARM_SETTINGS);
 
@@ -348,6 +355,13 @@ public class SettingsActivity extends PreferenceActivity
 
         listPref = (ListPreference) findPreference(KEY_SHAKE_ACTION);
         if (hasAccelSensor) {
+            listPref.setSummary(listPref.getEntry());
+            listPref.setOnPreferenceChangeListener(this);
+        } else {
+            alarmCategory.removePreference(listPref);
+        }
+        listPref = (ListPreference) findPreference(KEY_WAVE_ACTION);
+        if (hasProxiSensor) {
             listPref.setSummary(listPref.getEntry());
             listPref.setOnPreferenceChangeListener(this);
         } else {

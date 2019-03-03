@@ -189,6 +189,13 @@
             android:entryValues="@array/volume_button_setting_values"
             android:key="shake_action_setting"
             android:title="@string/shake_action_title" />
+        <ListPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/wave_action_dialog_title"
+            android:entries="@array/volume_button_setting_entries"
+            android:entryValues="@array/volume_button_setting_values"
+            android:key="wave_action_setting"
+            android:title="@string/wave_action_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/timer_settings" >
         <CheckBoxPreference

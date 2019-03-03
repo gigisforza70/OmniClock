@@ -82,8 +82,10 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
     private SensorManager mSensorManager;
     private String mFlipAction;
     private String mShakeAction;
+    private String mWaveAction;
     private FlipSensorListener mFlipListener;
     private ShakeSensorListener mShakeListener;
+    private ProximitySensorListener mProxiListener;
     private boolean mPreAlarmMode;
     private long mInstanceId;
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -166,6 +168,16 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
                 }
             }
         });
+
+        mProxiListener = new ProximitySensorListener(new Runnable(){
+            @Override
+            public void run() {
+                if (!mAlarmHandled) {
+                    LogUtils.v(LOGTAG, "mWaveAction: " + mAlarmInstance);
+                    handleAction(mWaveAction);
+                }
+            }
+        }, mSensorManager);
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Get the volume/camera button behavior setting
@@ -178,7 +190,11 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
         mShakeAction = prefs.getString(SettingsActivity.KEY_SHAKE_ACTION,
                 SettingsActivity.DEFAULT_ALARM_ACTION);
 
-        LogUtils.v(LOGTAG, "mVolumeBehavior: " + mVolumeBehavior + " mFlipAction " + mFlipAction  + " mShakeAction " + mShakeAction);
+        mWaveAction = prefs.getString(SettingsActivity.KEY_WAVE_ACTION,
+                SettingsActivity.DEFAULT_ALARM_ACTION);
+
+        LogUtils.v(LOGTAG, "mVolumeBehavior: " + mVolumeBehavior + " mFlipAction " + mFlipAction  +
+                " mShakeAction " + mShakeAction + " mWaveAction " + mWaveAction);
 
         final boolean keepScreenOn = prefs.getBoolean(SettingsActivity.KEY_KEEP_SCREEN_ON, true);
         final boolean makeScreenDark = prefs.getBoolean(SettingsActivity.KEY_MAKE_SCREEN_DARK, false);
@@ -344,6 +360,13 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
                     mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                     SensorManager.SENSOR_DELAY_NORMAL);
         }
+        if (!mWaveAction.equals(SettingsActivity.ALARM_NO_ACTION)) {
+            LogUtils.v(LOGTAG, "register mProxiListener");
+            mProxiListener.reset();
+            mSensorManager.registerListener(mProxiListener,
+                    mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
+                    SensorManager.SENSOR_DELAY_NORMAL);
+        }
     }
 
     private void detachListeners() {
@@ -354,6 +377,10 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
         if (!mShakeAction.equals(SettingsActivity.ALARM_NO_ACTION)) {
             LogUtils.v(LOGTAG, "unregister mShakeListener");
             mSensorManager.unregisterListener(mShakeListener);
+        }
+        if (!mWaveAction.equals(SettingsActivity.ALARM_NO_ACTION)) {
+            LogUtils.v(LOGTAG, "unregister mProxiListener");
+            mSensorManager.unregisterListener(mProxiListener);
         }
     }
 
