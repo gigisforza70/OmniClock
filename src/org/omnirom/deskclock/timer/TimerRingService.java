@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.omnirom.deskclock;
+package org.omnirom.deskclock.timer;
 
 import android.app.Service;
 import android.content.Context;
@@ -32,6 +32,11 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+
+import org.omnirom.deskclock.AlarmAlertWakeLock;
+import org.omnirom.deskclock.LogUtils;
+import org.omnirom.deskclock.R;
+import org.omnirom.deskclock.SettingsActivity;
 
 import java.io.IOException;
 

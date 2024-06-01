@@ -69,6 +69,7 @@ import org.omnirom.deskclock.alarms.AlarmConstants;
 import org.omnirom.deskclock.provider.Alarm;
 import org.omnirom.deskclock.provider.AlarmInstance;
 import org.omnirom.deskclock.stopwatch.Stopwatches;
+import org.omnirom.deskclock.timer.TimerReceiver;
 import org.omnirom.deskclock.timer.Timers;
 import org.omnirom.deskclock.worldclock.CityObj;
 import org.omnirom.deskclock.worldclock.db.DbCities;
@@ -281,7 +282,7 @@ public class Utils {
      * Broadcast a message to show the in-use timers in the notifications
      */
     public static void showInUseNotifications(Context context) {
-        Intent timerIntent = new Intent();
+        Intent timerIntent = new Intent(context, TimerReceiver.class);
         timerIntent.setAction(Timers.NOTIF_IN_USE_SHOW);
         context.sendBroadcast(timerIntent);
     }
@@ -290,7 +291,7 @@ public class Utils {
      * Broadcast a message to show the in-use timers in the notifications
      */
     public static void showTimesUpNotifications(Context context) {
-        Intent timerIntent = new Intent();
+        Intent timerIntent = new Intent(context, TimerReceiver.class);
         timerIntent.setAction(Timers.NOTIF_TIMES_UP_SHOW);
         context.sendBroadcast(timerIntent);
     }

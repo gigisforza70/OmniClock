@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import org.omnirom.deskclock.CircleTimerView;
+import org.omnirom.deskclock.CountingTimerView;
 import org.omnirom.deskclock.Utils;
 
 

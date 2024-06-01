@@ -49,6 +49,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.omnirom.deskclock.CircleButtonsLayout;
+import org.omnirom.deskclock.CountingTimerView;
 import org.omnirom.deskclock.DeskClock;
 import org.omnirom.deskclock.DeskClockFragment;
 import org.omnirom.deskclock.LabelDialogFragment;

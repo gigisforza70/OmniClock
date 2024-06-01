@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.omnirom.deskclock.timer;
+package org.omnirom.deskclock;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -25,10 +25,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
-
-import org.omnirom.deskclock.CircleTimerView;
-import org.omnirom.deskclock.LogUtils;
-import org.omnirom.deskclock.Utils;
 
 
 /**

@@ -33,6 +33,7 @@ import org.omnirom.deskclock.provider.AlarmInstance;
 import org.omnirom.deskclock.provider.DaysOfWeek;
 import org.omnirom.deskclock.timer.TimerFullScreenFragment;
 import org.omnirom.deskclock.timer.TimerObj;
+import org.omnirom.deskclock.timer.TimerReceiver;
 import org.omnirom.deskclock.timer.Timers;
 
 import java.util.ArrayList;
@@ -217,7 +218,7 @@ public class HandleApiCalls extends Activity {
         timer.writeToSharedPref(prefs);
 
         // Tell TimerReceiver that the timer was started
-        sendBroadcast(new Intent().setAction(Timers.START_TIMER)
+        sendBroadcast(new Intent(this, TimerReceiver.class).setAction(Timers.START_TIMER)
                 .putExtra(Timers.TIMER_INTENT_EXTRA, timer.mTimerId));
 
         if (skipUi) {

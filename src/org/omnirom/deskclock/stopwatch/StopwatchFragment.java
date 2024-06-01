@@ -44,7 +44,7 @@ import org.omnirom.deskclock.DeskClock;
 import org.omnirom.deskclock.DeskClockFragment;
 import org.omnirom.deskclock.LogUtils;
 import org.omnirom.deskclock.Utils;
-import org.omnirom.deskclock.timer.CountingTimerView;
+import org.omnirom.deskclock.CountingTimerView;
 
 import java.util.ArrayList;
 

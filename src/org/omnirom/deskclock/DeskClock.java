@@ -54,6 +54,7 @@ import org.omnirom.deskclock.stopwatch.StopwatchService;
 import org.omnirom.deskclock.stopwatch.Stopwatches;
 import org.omnirom.deskclock.timer.TimerFragment;
 import org.omnirom.deskclock.timer.TimerObj;
+import org.omnirom.deskclock.timer.TimerReceiver;
 import org.omnirom.deskclock.timer.Timers;
 import org.omnirom.deskclock.widget.ActionableToastBar;
 import org.omnirom.deskclock.widget.SlidingTabLayout;
@@ -258,7 +259,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(Timers.NOTIF_APP_OPEN, true);
         editor.apply();
-        Intent timerIntent = new Intent();
+        Intent timerIntent = new Intent(this, TimerReceiver.class);
         timerIntent.setAction(Timers.NOTIF_IN_USE_CANCEL);
         sendBroadcast(timerIntent);
 
