@@ -188,4 +188,9 @@
     <string name="analog_clock_settings">Analog clock</string>
     <string name="time_zone_settings">Timezone settings</string>
     <string name="binary_gadget">Binary clock</string>
+
+    <!-- Notification channels -->
+    <string name="channel_default">Others</string>
+    <string name="channel_expired_events">Firing alarms &amp; timers</string>
+    <string name="channel_important">Important notifications</string>
 </resources>

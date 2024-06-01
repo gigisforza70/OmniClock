@@ -14,8 +14,13 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import androidx.core.app.NotificationCompat;
+
 import org.omnirom.deskclock.CircleTimerView;
 import org.omnirom.deskclock.DeskClock;
+import org.omnirom.deskclock.NotificationChannelManager.Channel;
+import org.omnirom.deskclock.NotificationChannelManager;
+import org.omnirom.deskclock.R;
 import org.omnirom.deskclock.Utils;
 
 /**
@@ -159,7 +164,7 @@ public class StopwatchService extends Service {
         // add category to distinguish between stopwatch intents and timer intents
         intent.addCategory("stopwatch");
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         // Set up remoteviews for the notification.
         RemoteViews remoteViewsCollapsed = new RemoteViews(getPackageName(),
@@ -186,7 +191,7 @@ public class StopwatchService extends Service {
             remoteViewsExpanded.setTextViewText(
                     org.omnirom.deskclock.R.id.left_button, getResources().getString(org.omnirom.deskclock.R.string.sw_lap_button).toUpperCase());
             remoteViewsExpanded.setOnClickPendingIntent(org.omnirom.deskclock.R.id.left_button,
-                    PendingIntent.getService(context, 0, leftButtonIntent, 0));
+                    PendingIntent.getService(context, 0, leftButtonIntent,  PendingIntent.FLAG_IMMUTABLE));
             remoteViewsExpanded.
                     setTextViewCompoundDrawablesRelative(org.omnirom.deskclock.R.id.left_button,
                             org.omnirom.deskclock.R.drawable.ic_notify_lap_black, 0, 0, 0);
@@ -197,7 +202,7 @@ public class StopwatchService extends Service {
             remoteViewsExpanded.setTextViewText(
                     org.omnirom.deskclock.R.id.right_button, getResources().getString(org.omnirom.deskclock.R.string.sw_pause_button).toUpperCase());
             remoteViewsExpanded.setOnClickPendingIntent(org.omnirom.deskclock.R.id.right_button,
-                    PendingIntent.getService(context, 0, rightButtonIntent, 0));
+                    PendingIntent.getService(context, 0, rightButtonIntent,  PendingIntent.FLAG_IMMUTABLE));
             remoteViewsExpanded.
                     setTextViewCompoundDrawablesRelative(org.omnirom.deskclock.R.id.right_button,
                             org.omnirom.deskclock.R.drawable.ic_notify_pause_black, 0, 0, 0);
@@ -220,7 +225,7 @@ public class StopwatchService extends Service {
             remoteViewsExpanded.setTextViewText(
                     org.omnirom.deskclock.R.id.left_button, getResources().getString(org.omnirom.deskclock.R.string.sw_reset_button).toUpperCase());
             remoteViewsExpanded.setOnClickPendingIntent(org.omnirom.deskclock.R.id.left_button,
-                    PendingIntent.getService(context, 0, leftButtonIntent, 0));
+                    PendingIntent.getService(context, 0, leftButtonIntent,  PendingIntent.FLAG_IMMUTABLE));
             remoteViewsExpanded.
                     setTextViewCompoundDrawablesRelative(org.omnirom.deskclock.R.id.left_button,
                             org.omnirom.deskclock.R.drawable.ic_notify_reset_black, 0, 0, 0);
@@ -231,7 +236,7 @@ public class StopwatchService extends Service {
             remoteViewsExpanded.setTextViewText(
                     org.omnirom.deskclock.R.id.right_button, getResources().getString(org.omnirom.deskclock.R.string.sw_start_button).toUpperCase());
             remoteViewsExpanded.setOnClickPendingIntent(org.omnirom.deskclock.R.id.right_button,
-                    PendingIntent.getService(context, 0, rightButtonIntent, 0));
+                    PendingIntent.getService(context, 0, rightButtonIntent,  PendingIntent.FLAG_IMMUTABLE));
             remoteViewsExpanded.
                     setTextViewCompoundDrawablesRelative(org.omnirom.deskclock.R.id.right_button,
                             org.omnirom.deskclock.R.drawable.ic_notify_start_black, 0, 0, 0);
@@ -250,12 +255,12 @@ public class StopwatchService extends Service {
                 .setAutoCancel(!clockRunning)
                 .setContent(remoteViewsCollapsed)
                 .setOngoing(clockRunning)
-                .setDeleteIntent(PendingIntent.getService(context, 0, dismissIntent, 0))
+                .setDeleteIntent(PendingIntent.getService(context, 0, dismissIntent,  PendingIntent.FLAG_IMMUTABLE))
                 .setSmallIcon(org.omnirom.deskclock.R.drawable.ic_notify_stopwatch)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setLocalOnly(true)
                 .setContentIntent(pendingIntent)
-                .setColor(context.getResources().getColor(org.omnirom.deskclock.R.color.primary))
+                .setColor(Utils.getColorAttr(context, org.omnirom.deskclock.R.attr.colorPrimary))
                 .build();
         notification.bigContentView = remoteViewsExpanded;
         mNotificationManager.notify(NOTIFICATION_ID, notification);
@@ -270,7 +275,7 @@ public class StopwatchService extends Service {
         // add category to distinguish between stopwatch intents and timer intents
         intent.addCategory("stopwatch");
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         // Set up remoteviews for the notification.
         RemoteViews remoteViewsCollapsed = new RemoteViews(getPackageName(),
@@ -282,7 +287,8 @@ public class StopwatchService extends Service {
         remoteViewsExpanded.setChronometer(
                 org.omnirom.deskclock.R.id.notif_chronometer, clockBaseTime, null, clockRunning);
 
-        Notification.Builder builder = new Notification.Builder(context);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
+                Channel.DEFAULT_NOTIFICATION);
         Resources resources = context.getResources();
 
         if (clockRunning) {
@@ -292,7 +298,7 @@ public class StopwatchService extends Service {
             builder.addAction(org.omnirom.deskclock.R.drawable.ic_notify_lap_black,
                     resources.getString(org.omnirom.deskclock.R.string.sw_lap_button),
                     PendingIntent.getService(context, 0,
-                            leftButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+                            leftButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
             // Right button: stop clock
             Intent rightButtonIntent = new Intent(context, StopwatchService.class);
@@ -301,7 +307,7 @@ public class StopwatchService extends Service {
             builder.addAction(org.omnirom.deskclock.R.drawable.ic_notify_pause_black,
                     resources.getString(org.omnirom.deskclock.R.string.sw_pause_button),
                     PendingIntent.getService(context, 0,
-                            rightButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+                            rightButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
             // Show the laps if applicable.
             if (numLaps > 0) {
@@ -322,7 +328,7 @@ public class StopwatchService extends Service {
             builder.addAction(org.omnirom.deskclock.R.drawable.ic_notify_reset_black,
                     resources.getString(org.omnirom.deskclock.R.string.sw_reset_button),
                     PendingIntent.getService(context, 0,
-                            leftButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+                            leftButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
             // Right button: start clock
             Intent rightButtonIntent = new Intent(context, StopwatchService.class);
@@ -331,7 +337,7 @@ public class StopwatchService extends Service {
             builder.addAction(org.omnirom.deskclock.R.drawable.ic_notify_start_black,
                     resources.getString(org.omnirom.deskclock.R.string.sw_start_button),
                     PendingIntent.getService(context, 0,
-                            rightButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+                            rightButtonIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
             // Show stopped string.
             remoteViewsCollapsed.setViewVisibility(org.omnirom.deskclock.R.id.notif_text, View.GONE);
@@ -343,22 +349,23 @@ public class StopwatchService extends Service {
         Intent dismissIntent = new Intent(context, StopwatchService.class);
         dismissIntent.setAction(Stopwatches.RESET_STOPWATCH);
 
-        if (Utils.isNougatOrLater()) {
-            Notification notification = builder
-                    .setAutoCancel(!clockRunning)
-                    .setCustomContentView(remoteViewsCollapsed)
-                    .setCustomBigContentView(remoteViewsExpanded)
-                    .setOngoing(clockRunning)
-                    .setDeleteIntent(PendingIntent.getService(context, 0, dismissIntent, 0))
-                    .setSmallIcon(org.omnirom.deskclock.R.drawable.ic_notify_stopwatch)
-                    .setPriority(Notification.PRIORITY_MAX)
-                    .setLocalOnly(true)
-                    .setStyle(new Notification.DecoratedCustomViewStyle())
-                    .setContentIntent(pendingIntent)
-                    .setColor(context.getResources().getColor(org.omnirom.deskclock.R.color.primary))
-                    .build();
-            mNotificationManager.notify(NOTIFICATION_ID, notification);
-        }
+
+        Notification notification = builder
+                .setAutoCancel(!clockRunning)
+                .setCustomContentView(remoteViewsCollapsed)
+                .setCustomBigContentView(remoteViewsExpanded)
+                .setOngoing(clockRunning)
+                .setDeleteIntent(PendingIntent.getService(context, 0, dismissIntent,  PendingIntent.FLAG_IMMUTABLE))
+                .setSmallIcon(R.drawable.ic_notify_stopwatch)
+                .setPriority(Notification.PRIORITY_MAX)
+                .setLocalOnly(true)
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+                .setContentIntent(pendingIntent)
+                .setColor(Utils.getColorAttr(context, org.omnirom.deskclock.R.attr.colorPrimary))
+                .build();
+        NotificationChannelManager.applyChannel(builder, context, Channel.DEFAULT_NOTIFICATION);
+        mNotificationManager.notify(NOTIFICATION_ID, notification);
+
     }
 
     /**
