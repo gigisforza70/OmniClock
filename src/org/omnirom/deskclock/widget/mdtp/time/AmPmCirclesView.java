@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wdullaer.materialdatetimepicker.time;
+package org.omnirom.deskclock.widget.mdtp.time;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -22,12 +22,12 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.Paint.Align;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 
 import com.wdullaer.materialdatetimepicker.R;
-import com.wdullaer.materialdatetimepicker.Utils;
+import org.omnirom.deskclock.widget.mdtp.Utils;
 
 import java.text.DateFormatSymbols;
 

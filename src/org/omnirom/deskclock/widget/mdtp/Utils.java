@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wdullaer.materialdatetimepicker;
+package org.omnirom.deskclock.widget.mdtp;
 
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
@@ -25,10 +25,11 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.AttrRes;
-import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
+
+import androidx.annotation.AttrRes;
+import androidx.core.content.ContextCompat;
 
 /**
  * Utility helper functions for time and date pickers.
@@ -155,7 +156,7 @@ public class Utils {
             return typedValue.data;
         }
         // Return the value in mdtp_accent_color
-        return ContextCompat.getColor(context, R.color.mdtp_accent_color);
+        return ContextCompat.getColor(context, com.wdullaer.materialdatetimepicker.R.color.mdtp_accent_color);
     }
 
     public static int getPrimaryColorFromThemeIfAvailable(Context context) {
@@ -171,7 +172,7 @@ public class Utils {
             return typedValue.data;
         }
         // Return the value in mdtp_accent_color
-        return ContextCompat.getColor(context, R.color.mdtp_background_color);
+        return ContextCompat.getColor(context, com.wdullaer.materialdatetimepicker.R.color.mdtp_background_color);
     }
 
     /**
@@ -181,7 +182,7 @@ public class Utils {
      * @return true if dark mode, false if light.
      */
     public static boolean isDarkTheme(Context context, boolean current) {
-        return resolveBoolean(context, R.attr.mdtp_theme_dark, current);
+        return resolveBoolean(context, com.wdullaer.materialdatetimepicker.R.attr.mdtp_theme_dark, current);
     }
 
     /**

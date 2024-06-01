@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.wdullaer.materialdatetimepicker.time;
+package org.omnirom.deskclock.widget.mdtp.time;
 
 import android.animation.ObjectAnimator;
 import android.app.ActionBar.LayoutParams;
@@ -26,11 +26,11 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.ColorInt;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -47,11 +47,11 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.wdullaer.materialdatetimepicker.HapticFeedbackController;
+import org.omnirom.deskclock.widget.mdtp.HapticFeedbackController;
 import com.wdullaer.materialdatetimepicker.R;
-import com.wdullaer.materialdatetimepicker.TypefaceHelper;
-import com.wdullaer.materialdatetimepicker.Utils;
-import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout.OnValueSelectedListener;
+import org.omnirom.deskclock.widget.mdtp.TypefaceHelper;
+import org.omnirom.deskclock.widget.mdtp.Utils;
+import org.omnirom.deskclock.widget.mdtp.time.RadialPickerLayout.OnValueSelectedListener;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -267,15 +267,7 @@ public class TimePickerDialog extends DialogFragment implements
 
     @Override
     public int getViewBackgroundColor() {
-        switch (mThemeId) {
-            case 0:
-                return getResources().getColor(R.color.view_background);
-            case 1:
-                return getResources().getColor(R.color.view_background_dark);
-            case 2:
-                return getResources().getColor(R.color.view_background_black);
-        }
-        return getResources().getColor(R.color.view_background);
+        return org.omnirom.deskclock.Utils.getViewBackgroundColor(getActivity(), mThemeId);
     }
 
     @Override

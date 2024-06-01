@@ -27,8 +27,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
@@ -56,7 +56,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.omnirom.deskclock.SettingsActivity;
+import org.omnirom.deskclock.R;
 import org.omnirom.deskclock.Utils;
 import org.omnirom.deskclock.worldclock.db.DbCities;
 import org.omnirom.deskclock.worldclock.db.DbCity;
@@ -66,7 +66,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -617,19 +616,15 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            case org.omnirom.deskclock.R.id.menu_item_add:
-                showAddCityDialog();
-                return true;
-            case org.omnirom.deskclock.R.id.menu_item_sort:
-                toggleSort();
-                setFastScroll(TextUtils.isEmpty(mQueryTextBuffer.toString().trim()));
-                return true;
-            default:
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        } else if (R.id.menu_item_add == item.getItemId()) {
+            showAddCityDialog();
+            return true;
+        } else if (R.id.menu_item_sort == item.getItemId()) {
+            toggleSort();
+            setFastScroll(TextUtils.isEmpty(mQueryTextBuffer.toString().trim()));
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

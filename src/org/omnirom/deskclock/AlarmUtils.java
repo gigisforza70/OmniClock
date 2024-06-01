@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 import org.omnirom.deskclock.provider.Alarm;
 import org.omnirom.deskclock.provider.AlarmInstance;
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+import org.omnirom.deskclock.widget.mdtp.time.TimePickerDialog;
 
 import java.util.Calendar;
 import java.util.Locale;

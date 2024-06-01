@@ -20,7 +20,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <android.support.v7.widget.CardView xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView xmlns:cardview="http://schemas.android.com/apk/res-auto"
         android:id="@+id/alarm_item_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -272,5 +272,5 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

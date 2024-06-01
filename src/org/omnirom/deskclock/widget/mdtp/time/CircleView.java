@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wdullaer.materialdatetimepicker.time;
+package org.omnirom.deskclock.widget.mdtp.time;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -24,7 +24,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.wdullaer.materialdatetimepicker.R;
-import com.wdullaer.materialdatetimepicker.Utils;
+import org.omnirom.deskclock.widget.mdtp.Utils;
 
 /**
  * Draws a simple white circle on which the numbers will be drawn.

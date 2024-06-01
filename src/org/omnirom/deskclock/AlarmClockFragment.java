@@ -38,10 +38,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.provider.OpenableColumns;
-import android.support.v13.app.FragmentCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
+
+import androidx.legacy.app.FragmentCompat;
+import androidx.core.content.ContextCompat;
+import androidx.cardview.widget.CardView;
 import android.text.TextUtils;
 import android.transition.AutoTransition;
 import android.transition.Transition;
@@ -70,8 +70,8 @@ import org.omnirom.deskclock.provider.DaysOfWeek;
 import org.omnirom.deskclock.widget.ActionableToastBar;
 import org.omnirom.deskclock.widget.ExpandAnimation;
 import org.omnirom.deskclock.widget.TextTime;
-import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+import org.omnirom.deskclock.widget.mdtp.time.RadialPickerLayout;
+import org.omnirom.deskclock.widget.mdtp.time.TimePickerDialog;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;

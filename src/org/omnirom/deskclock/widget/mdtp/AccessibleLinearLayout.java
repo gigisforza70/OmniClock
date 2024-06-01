@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wdullaer.materialdatetimepicker;
+package org.omnirom.deskclock.widget.mdtp;
 
 import android.content.Context;
 import android.util.AttributeSet;

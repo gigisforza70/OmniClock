@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wdullaer.materialdatetimepicker.time;
+package org.omnirom.deskclock.widget.mdtp.time;
 
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
@@ -25,12 +25,11 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 
 import com.wdullaer.materialdatetimepicker.R;
-import com.wdullaer.materialdatetimepicker.Utils;
+import org.omnirom.deskclock.widget.mdtp.Utils;
 
 /**
  * View to show what number is selected. This will draw a blue circle over the number, with a blue

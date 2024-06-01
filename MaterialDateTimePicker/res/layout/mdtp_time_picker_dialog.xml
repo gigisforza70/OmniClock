@@ -46,7 +46,7 @@
                 android:layout_gravity="center"/>
         </LinearLayout>
 
-        <com.wdullaer.materialdatetimepicker.time.RadialPickerLayout
+        <org.omnirom.deskclock.widget.mdtp.time.RadialPickerLayout
             android:id="@+id/time_picker"
             android:layout_width="@dimen/mdtp_picker_dimen"
             android:layout_height="@dimen/mdtp_picker_dimen"

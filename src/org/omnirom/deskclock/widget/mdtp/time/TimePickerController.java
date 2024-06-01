@@ -1,4 +1,4 @@
-package com.wdullaer.materialdatetimepicker.time;
+package org.omnirom.deskclock.widget.mdtp.time;
 
 /**
  * A collection of methods which need to be shared with all components of the TimePicker

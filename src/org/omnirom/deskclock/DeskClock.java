@@ -17,7 +17,6 @@
 package org.omnirom.deskclock;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
@@ -31,14 +30,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v13.app.ActivityCompat;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
+import androidx.legacy.app.ActivityCompat;
+import androidx.legacy.app.FragmentPagerAdapter;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
+
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -315,18 +312,15 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_item_spotify:
-                if (Utils.isSpotifyPluginInstalled(this)) {
-                    Intent spotifyIntent = Utils.getSpotifySettingsIntent(this);
-                    startActivity(spotifyIntent);
-                    return true;
-                }
-            case R.id.menu_item_settings:
-                startActivity(new Intent(DeskClock.this, SettingsActivity.class));
+        if (item.getItemId() == R.id.menu_item_spotify) {
+            if (Utils.isSpotifyPluginInstalled(this)) {
+                Intent spotifyIntent = Utils.getSpotifySettingsIntent(this);
+                startActivity(spotifyIntent);
                 return true;
-            default:
-                break;
+            }
+        } else if (item.getItemId() == R.id.menu_item_settings) {
+            startActivity(new Intent(DeskClock.this, SettingsActivity.class));
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

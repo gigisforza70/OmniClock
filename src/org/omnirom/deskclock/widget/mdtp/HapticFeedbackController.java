@@ -1,4 +1,4 @@
-package com.wdullaer.materialdatetimepicker;
+package org.omnirom.deskclock.widget.mdtp;
 
 import android.app.Service;
 import android.content.Context;
