@@ -38,6 +38,13 @@
             android:paddingStart="20dp"
             android:paddingEnd="10dp">
 
+            <TextView
+                android:id="@+id/query_type_string"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textAppearance="@android:style/TextAppearance.Material.Subhead" />
+
             <SearchView
                 android:id="@+id/query_pattern"
                 android:layout_width="0dp"
@@ -103,13 +110,39 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_view"
+        <LinearLayout
+            android:id="@+id/query_types"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@color/view_background"
-            android:paddingTop="12dp"
-            android:paddingBottom="16dp"
-            app:menu="@menu/browse_tabs" />
+            android:layout_height="@dimen/bottom_nav_height"
+            android:background="@color/bottom_nav_bg"
+            android:orientation="horizontal"
+            android:gravity="center_vertical" >
+
+            <include
+                android:id="@+id/tab_recent"
+                layout="@layout/tab_strip_item"/>
+            <include
+                android:id="@+id/tab_alarms"
+                layout="@layout/tab_strip_item"/>
+            <include
+                android:id="@+id/tab_artist"
+                layout="@layout/tab_strip_item"/>
+            <include
+                android:id="@+id/tab_album"
+                layout="@layout/tab_strip_item"/>
+            <include
+                android:id="@+id/tab_track"
+                layout="@layout/tab_strip_item"/>
+            <include
+                android:id="@+id/tab_playlist"
+                layout="@layout/tab_strip_item"/>
+            <include
+                android:id="@+id/tab_stream"
+                layout="@layout/tab_strip_item"/>
+            <include
+                android:id="@+id/tab_folder"
+                layout="@layout/tab_strip_item"/>
+
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

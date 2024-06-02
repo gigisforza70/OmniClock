@@ -231,7 +231,7 @@ public class RingtonePreference extends Preference {
     protected void onAttachedToHierarchy(PreferenceManager preferenceManager) {
         super.onAttachedToHierarchy(preferenceManager);
         //TODO:better request code number handling
-        mRequestCode = 83467;
+        mRequestCode = 83;
     }
 
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -18,7 +18,6 @@
 package org.omnirom.deskclock;
 
 import android.app.Activity;
-import androidx.fragment.app.DialogFragment;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -43,15 +42,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.omnirom.deskclock.alarms.AlarmConstants;
 import org.omnirom.deskclock.provider.Alarm;
@@ -90,7 +87,16 @@ public class BrowseActivity extends AppCompatActivity implements SearchView.OnQu
     private String mCurrentQueryText = "";
     private ProgressBar mProgress;
     private View mFooterView;
+    private TextView mQueryTypeText;
     private List<QueryItem> mQueryResultListCopy = new ArrayList<QueryItem>();
+    private View mPlaylistTab;
+    private View mArtistTab;
+    private View mAlbumTab;
+    private View mTrackTab;
+    private View mRecentTab;
+    private View mStreamTab;
+    private View mFolderTab;
+    private View mAlarmsTab;
     private boolean mPreAlarm;
     private List<QueryItem> mAlarms;
     private List<QueryItem> mRingtones;
@@ -101,8 +107,6 @@ public class BrowseActivity extends AppCompatActivity implements SearchView.OnQu
     private boolean mLimitedMode;
     private int mPrimaryColor;
     private int mPrimaryColorDisabled;
-
-    BottomNavigationView mBottomNavigationView;
 
     private class QueryItem implements Comparable<QueryItem> {
         String mName;
@@ -162,6 +166,7 @@ public class BrowseActivity extends AppCompatActivity implements SearchView.OnQu
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setSubmitButtonEnabled(false);
         mSearchView.setVisibility(View.INVISIBLE);
+        mQueryTypeText = (TextView) findViewById(R.id.query_type_string);
         mQueryList = (ListView) findViewById(R.id.query_result);
         mFooterView = getLayoutInflater().inflate(R.layout.browse_footer_item, mQueryList, false);
         mProgress = (ProgressBar) mFooterView.findViewById(R.id.query_progressbar);
@@ -176,102 +181,9 @@ public class BrowseActivity extends AppCompatActivity implements SearchView.OnQu
                 }
             }
         });
-
-        mBottomNavigationView = findViewById(R.id.bottom_view);
-        //TODO: theme adjustable color (see start of onCreate)
-        mBottomNavigationView.setBackgroundColor(Utils.getViewBackgroundColor(this));
-        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                int queryType = -1;
-                if (id == R.id.tab_recent) {
-                    queryType = QUERY_TYPE_RECENT;
-
-                    mSearchView.setVisibility(View.INVISIBLE);
-                    mChooseFolder.setVisibility(View.GONE);
-                    mPasteUrl.setVisibility(View.GONE);
-                    mQueryType = QUERY_TYPE_RECENT;
-                    clearList();
-                    doQuery(mCurrentQueryText, 0);
-                } else if (id == R.id.tab_alarms) {
-                    queryType = QUERY_TYPE_ALARM;
-
-                    mSearchView.setVisibility(View.INVISIBLE);
-                    mChooseFolder.setVisibility(View.GONE);
-                    mPasteUrl.setVisibility(View.GONE);
-                    mQueryType = QUERY_TYPE_ALARM;
-                    clearList();
-                    doQuery(mCurrentQueryText, 0);
-                } else if (id == R.id.tab_artist) {
-                    queryType = QUERY_TYPE_ARTIST;
-
-                    mSearchView.setVisibility(View.VISIBLE);
-                    mChooseFolder.setVisibility(View.GONE);
-                    mPasteUrl.setVisibility(View.GONE);
-                    mQueryType = QUERY_TYPE_ARTIST;
-                    clearList();
-                    doQuery(mCurrentQueryText, 0);
-                } else if (id == R.id.tab_album) {
-                    queryType = QUERY_TYPE_ALBUM;
-
-                    mSearchView.setVisibility(View.VISIBLE);
-                    mChooseFolder.setVisibility(View.GONE);
-                    mPasteUrl.setVisibility(View.GONE);
-                    mQueryType = QUERY_TYPE_ALBUM;
-                    clearList();
-                    doQuery(mCurrentQueryText, 0);
-                } else if (id == R.id.tab_track) {
-                    queryType = QUERY_TYPE_TRACK;
-
-                    mSearchView.setVisibility(View.VISIBLE);
-                    mChooseFolder.setVisibility(View.GONE);
-                    mPasteUrl.setVisibility(View.GONE);
-                    mQueryType = QUERY_TYPE_TRACK;
-                    clearList();
-                    doQuery(mCurrentQueryText, 0);
-                } else if (id == R.id.tab_playlist) {
-                    queryType = QUERY_TYPE_PLAYLIST;
-
-                    mSearchView.setVisibility(View.VISIBLE);
-                    mChooseFolder.setVisibility(View.GONE);
-                    mPasteUrl.setVisibility(View.GONE);
-                    mQueryType = QUERY_TYPE_PLAYLIST;
-                    clearList();
-                    doQuery(mCurrentQueryText, 0);
-                } else if (id == R.id.tab_folder) {
-                    queryType = QUERY_TYPE_FOLDER;
-
-                    mSearchView.setVisibility(View.INVISIBLE);
-                    mChooseFolder.setVisibility(View.VISIBLE);
-                    mPasteUrl.setVisibility(View.GONE);
-                    mQueryType = QUERY_TYPE_FOLDER;
-                    clearList();
-                    doQuery(mCurrentQueryText, 0);
-                } else if (id == R.id.tab_stream) {
-                    queryType = QUERY_TYPE_STREAM;
-
-                    mSearchView.setVisibility(View.GONE);
-                    mChooseFolder.setVisibility(View.GONE);
-                    mPasteUrl.setVisibility(View.VISIBLE);
-                    mQueryType = QUERY_TYPE_STREAM;
-                    clearList();
-                    doQuery(mCurrentQueryText, 0);
-                }
-
-                if (queryType != -1) {
-
-
-
-
-                    return true;
-                }
-                return false;
-            }
-        });
         mQueryList.addFooterView(mFooterView, null, false);
         mQueryType = QUERY_TYPE_RECENT;
-        mBottomNavigationView.setSelectedItemId(R.id.tab_recent);
+        mQueryTypeText.setText(R.string.local_query_recent);
         mChooseFolder = (TextView) findViewById(R.id.query_folder_button);
         mChooseFolder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -283,10 +195,149 @@ public class BrowseActivity extends AppCompatActivity implements SearchView.OnQu
         mAdapter = createListAdapter();
         mQueryList.setAdapter(mAdapter);
 
-        /*if (mLimitedMode) {
+        mAlarmsTab = findViewById(R.id.tab_alarms);
+        ((ImageView) mAlarmsTab.findViewById(R.id.tab_strip_image)).setImageResource(R.drawable.ic_alarm_white);
+        ((TextView) mAlarmsTab.findViewById(R.id.tab_strip_title)).setText(R.string.local_query_alarm);
+        mAlarmsTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchView.setVisibility(View.INVISIBLE);
+                mChooseFolder.setVisibility(View.GONE);
+                mPasteUrl.setVisibility(View.GONE);
+                mQueryType = QUERY_TYPE_ALARM;
+                mQueryTypeText.setText(R.string.local_query_alarm_ringtones);
+                clearList();
+                updateTabs();
+                doQuery(mCurrentQueryText, 0);
+            }
+        });
+
+        mRecentTab = findViewById(R.id.tab_recent);
+        ((ImageView) mRecentTab.findViewById(R.id.tab_strip_image)).setImageResource(R.drawable.ic_star_white);
+        ((TextView) mRecentTab.findViewById(R.id.tab_strip_title)).setText(R.string.local_query_recent);
+        mRecentTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchView.setVisibility(View.INVISIBLE);
+                mChooseFolder.setVisibility(View.GONE);
+                mPasteUrl.setVisibility(View.GONE);
+                mQueryType = QUERY_TYPE_RECENT;
+                mQueryTypeText.setText(R.string.local_query_recent);
+                clearList();
+                updateTabs();
+                doQuery(mCurrentQueryText, 0);
+            }
+        });
+
+        mArtistTab = findViewById(R.id.tab_artist);
+        ((ImageView) mArtistTab.findViewById(R.id.tab_strip_image)).setImageResource(R.drawable.ic_artist_white);
+        ((TextView) mArtistTab.findViewById(R.id.tab_strip_title)).setText(R.string.local_query_artist);
+        mArtistTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchView.setVisibility(View.VISIBLE);
+                mChooseFolder.setVisibility(View.GONE);
+                mPasteUrl.setVisibility(View.GONE);
+                mQueryType = QUERY_TYPE_ARTIST;
+                mQueryTypeText.setText(R.string.local_query_artist);
+                clearList();
+                updateTabs();
+                doQuery(mCurrentQueryText, 0);
+            }
+        });
+
+        mAlbumTab = findViewById(R.id.tab_album);
+        ((ImageView) mAlbumTab.findViewById(R.id.tab_strip_image)).setImageResource(R.drawable.ic_album_white);
+        ((TextView) mAlbumTab.findViewById(R.id.tab_strip_title)).setText(R.string.local_query_album);
+        mAlbumTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchView.setVisibility(View.VISIBLE);
+                mChooseFolder.setVisibility(View.GONE);
+                mPasteUrl.setVisibility(View.GONE);
+                mQueryType = QUERY_TYPE_ALBUM;
+                mQueryTypeText.setText(R.string.local_query_album);
+                clearList();
+                updateTabs();
+                doQuery(mCurrentQueryText, 0);
+            }
+        });
+
+        mTrackTab = findViewById(R.id.tab_track);
+        ((ImageView) mTrackTab.findViewById(R.id.tab_strip_image)).setImageResource(R.drawable.ic_track_white);
+        ((TextView) mTrackTab.findViewById(R.id.tab_strip_title)).setText(R.string.local_query_track);
+        mTrackTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchView.setVisibility(View.VISIBLE);
+                mChooseFolder.setVisibility(View.GONE);
+                mPasteUrl.setVisibility(View.GONE);
+                mQueryType = QUERY_TYPE_TRACK;
+                mQueryTypeText.setText(R.string.local_query_track);
+                clearList();
+                updateTabs();
+                doQuery(mCurrentQueryText, 0);
+            }
+        });
+
+        mFolderTab = findViewById(R.id.tab_folder);
+        ((ImageView) mFolderTab.findViewById(R.id.tab_strip_image)).setImageResource(R.drawable.ic_folder_white);
+        ((TextView) mFolderTab.findViewById(R.id.tab_strip_title)).setText(R.string.local_query_folder);
+        mFolderTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchView.setVisibility(View.INVISIBLE);
+                mChooseFolder.setVisibility(View.VISIBLE);
+                mPasteUrl.setVisibility(View.GONE);
+                mQueryType = QUERY_TYPE_FOLDER;
+                mQueryTypeText.setText(R.string.local_query_folder);
+                clearList();
+                updateTabs();
+                doQuery(mCurrentQueryText, 0);
+            }
+        });
+
+        mPlaylistTab = findViewById(R.id.tab_playlist);
+        ((ImageView) mPlaylistTab.findViewById(R.id.tab_strip_image)).setImageResource(R.drawable.ic_playlist_white);
+        ((TextView) mPlaylistTab.findViewById(R.id.tab_strip_title)).setText(R.string.local_query_playlist);
+        mPlaylistTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchView.setVisibility(View.VISIBLE);
+                mChooseFolder.setVisibility(View.GONE);
+                mPasteUrl.setVisibility(View.GONE);
+                mQueryType = QUERY_TYPE_PLAYLIST;
+                mQueryTypeText.setText(R.string.local_query_playlist);
+                clearList();
+                updateTabs();
+                doQuery(mCurrentQueryText, 0);
+            }
+        });
+
+        mStreamTab = findViewById(R.id.tab_stream);
+        ((ImageView) mStreamTab.findViewById(R.id.tab_strip_image)).setImageResource(R.drawable.ic_earth_white);
+        ((TextView) mStreamTab.findViewById(R.id.tab_strip_title)).setText(R.string.local_query_stream);
+        mStreamTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchView.setVisibility(View.GONE);
+                mChooseFolder.setVisibility(View.GONE);
+                mPasteUrl.setVisibility(View.VISIBLE);
+                mQueryType = QUERY_TYPE_STREAM;
+                mQueryTypeText.setText(R.string.local_query_stream);
+                clearList();
+                updateTabs();
+                doQuery(mCurrentQueryText, 0);
+            }
+        });
+
+        if (mLimitedMode) {
             mStreamTab.setVisibility(View.GONE);
             mPlaylistTab.setVisibility(View.GONE);
-        }*/
+        }
+        mFolderTab.setVisibility(View.GONE);
+
+        updateTabs();
 
         mQueryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -742,7 +793,7 @@ public class BrowseActivity extends AppCompatActivity implements SearchView.OnQu
             return false;
         }
         String albumId = Uri.parse(album).getLastPathSegment();
-        String selection = MediaStore.Audio.Media.ALBUM_ID + " = " + Integer.valueOf(albumId).intValue();
+        String selection = MediaStore.Audio.Media.ALBUM_ID + " = " + Long.valueOf(albumId).longValue();
 
         String[] projection = {
                 MediaStore.Audio.Albums._ID,
@@ -809,7 +860,7 @@ public class BrowseActivity extends AppCompatActivity implements SearchView.OnQu
             return false;
         }
         String artistId = Uri.parse(artist).getLastPathSegment();
-        String selection = MediaStore.Audio.Media.ARTIST_ID + " = " + Integer.valueOf(artistId).intValue();
+        String selection = MediaStore.Audio.Media.ARTIST_ID + " = " + Long.valueOf(artistId).longValue();
 
         String[] projection = {
                 MediaStore.Audio.Artists._ID,
@@ -842,7 +893,7 @@ public class BrowseActivity extends AppCompatActivity implements SearchView.OnQu
             return false;
         }
         String trackId = Uri.parse(track).getLastPathSegment();
-        String selection = MediaStore.Audio.Media._ID + " = " + Integer.valueOf(trackId).intValue();
+        String selection = MediaStore.Audio.Media._ID + " = " + Long.valueOf(trackId).longValue();
 
         String[] projection = {
                 MediaStore.Audio.Media._ID,
@@ -881,7 +932,7 @@ public class BrowseActivity extends AppCompatActivity implements SearchView.OnQu
             return false;
         }
         String playlistId = Uri.parse(playlist).getLastPathSegment();
-        String selection = MediaStore.Audio.Playlists._ID + " = " + Integer.valueOf(playlistId).intValue();
+        String selection = MediaStore.Audio.Playlists._ID + " = " + Long.valueOf(playlistId).longValue();
 
         String[] projection = {
                 MediaStore.Audio.Playlists._ID,
@@ -1252,6 +1303,91 @@ public class BrowseActivity extends AppCompatActivity implements SearchView.OnQu
                 mQueryResultListCopy.add(queryItem);
             }
             resolveRecents();
+        }
+    }
+
+    private void updateTabs() {
+        switch (mQueryType) {
+            case QUERY_TYPE_ALARM:
+                setTabImageEnabled(mRecentTab, false);
+                setTabImageEnabled(mArtistTab, false);
+                setTabImageEnabled(mAlbumTab, false);
+                setTabImageEnabled(mTrackTab, false);
+                setTabImageEnabled(mPlaylistTab, false);
+                setTabImageEnabled(mStreamTab, false);
+                setTabImageEnabled(mFolderTab, false);
+                setTabImageEnabled(mAlarmsTab, true);
+                break;
+            case QUERY_TYPE_RECENT:
+                setTabImageEnabled(mRecentTab, true);
+                setTabImageEnabled(mArtistTab, false);
+                setTabImageEnabled(mAlbumTab, false);
+                setTabImageEnabled(mTrackTab, false);
+                setTabImageEnabled(mPlaylistTab, false);
+                setTabImageEnabled(mStreamTab, false);
+                setTabImageEnabled(mFolderTab, false);
+                setTabImageEnabled(mAlarmsTab, false);
+                break;
+            case QUERY_TYPE_ARTIST:
+                setTabImageEnabled(mRecentTab, false);
+                setTabImageEnabled(mArtistTab, true);
+                setTabImageEnabled(mAlbumTab, false);
+                setTabImageEnabled(mTrackTab, false);
+                setTabImageEnabled(mPlaylistTab, false);
+                setTabImageEnabled(mStreamTab, false);
+                setTabImageEnabled(mFolderTab, false);
+                setTabImageEnabled(mAlarmsTab, false);
+                break;
+            case QUERY_TYPE_ALBUM:
+                setTabImageEnabled(mRecentTab, false);
+                setTabImageEnabled(mArtistTab, false);
+                setTabImageEnabled(mAlbumTab, true);
+                setTabImageEnabled(mTrackTab, false);
+                setTabImageEnabled(mPlaylistTab, false);
+                setTabImageEnabled(mStreamTab, false);
+                setTabImageEnabled(mFolderTab, false);
+                setTabImageEnabled(mAlarmsTab, false);
+                break;
+            case QUERY_TYPE_TRACK:
+                setTabImageEnabled(mRecentTab, false);
+                setTabImageEnabled(mArtistTab, false);
+                setTabImageEnabled(mAlbumTab, false);
+                setTabImageEnabled(mTrackTab, true);
+                setTabImageEnabled(mPlaylistTab, false);
+                setTabImageEnabled(mStreamTab, false);
+                setTabImageEnabled(mFolderTab, false);
+                setTabImageEnabled(mAlarmsTab, false);
+                break;
+            case QUERY_TYPE_FOLDER:
+                setTabImageEnabled(mRecentTab, false);
+                setTabImageEnabled(mArtistTab, false);
+                setTabImageEnabled(mAlbumTab, false);
+                setTabImageEnabled(mTrackTab, false);
+                setTabImageEnabled(mPlaylistTab, false);
+                setTabImageEnabled(mStreamTab, false);
+                setTabImageEnabled(mFolderTab, true);
+                setTabImageEnabled(mAlarmsTab, false);
+                break;
+            case QUERY_TYPE_PLAYLIST:
+                setTabImageEnabled(mRecentTab, false);
+                setTabImageEnabled(mArtistTab, false);
+                setTabImageEnabled(mAlbumTab, false);
+                setTabImageEnabled(mTrackTab, false);
+                setTabImageEnabled(mPlaylistTab, true);
+                setTabImageEnabled(mStreamTab, false);
+                setTabImageEnabled(mFolderTab, false);
+                setTabImageEnabled(mAlarmsTab, false);
+                break;
+            case QUERY_TYPE_STREAM:
+                setTabImageEnabled(mRecentTab, false);
+                setTabImageEnabled(mArtistTab, false);
+                setTabImageEnabled(mAlbumTab, false);
+                setTabImageEnabled(mTrackTab, false);
+                setTabImageEnabled(mPlaylistTab, false);
+                setTabImageEnabled(mStreamTab, true);
+                setTabImageEnabled(mFolderTab, false);
+                setTabImageEnabled(mAlarmsTab, false);
+                break;
         }
     }
 

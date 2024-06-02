@@ -203,13 +203,14 @@
             android:key="timer_alarm_custom"
             android:summary="@string/timer_alarm_custom_summary"
             android:title="@string/timer_alarm_custom_title" />
-        <RingtonePreference
+        <org.omnirom.deskclock.preference.RingtonePreference
             android:key="timer_alarm"
             android:title="@string/timer_alarm_title"
             android:ringtoneType="alarm"
             android:showSilent="true"
             android:showDefault="true"
-            android:dependency="timer_alarm_custom" />
+            android:dependency="timer_alarm_custom"
+            android:iconSpaceReserved="true" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="timer_alarm_vibrate"

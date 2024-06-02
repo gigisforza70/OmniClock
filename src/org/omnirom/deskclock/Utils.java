@@ -1025,7 +1025,7 @@ public class Utils {
 
     public static List<Uri> getAlbumSongs(Context context, Uri album) {
         String albumId = album.getLastPathSegment();
-        String selection = MediaStore.Audio.Media.ALBUM_ID + " = " + Integer.valueOf(albumId).intValue();
+        String selection = MediaStore.Audio.Media.ALBUM_ID + " = " + Long.valueOf(albumId).longValue();
 
         String[] projection = {
                 MediaStore.Audio.Media._ID,
@@ -1052,7 +1052,7 @@ public class Utils {
 
     public static boolean checkAlbumExists(Context context, Uri album) {
         String albumId = album.getLastPathSegment();
-        String selection = MediaStore.Audio.Media.ALBUM_ID + " = " + Integer.valueOf(albumId).intValue();
+        String selection = MediaStore.Audio.Media.ALBUM_ID + " = " + Long.valueOf(albumId).longValue();
 
         String[] projection = {
                 MediaStore.Audio.Media._ID,
@@ -1071,7 +1071,7 @@ public class Utils {
 
     public static List<Uri> getArtistSongs(Context context, Uri artist) {
         String artistId = artist.getLastPathSegment();
-        String selection = MediaStore.Audio.Media.ARTIST_ID + " = " + Integer.valueOf(artistId).intValue();
+        String selection = MediaStore.Audio.Media.ARTIST_ID + " = " + Long.valueOf(artistId).longValue();
 
         String[] projection = {
                 MediaStore.Audio.Media._ID,
@@ -1098,7 +1098,7 @@ public class Utils {
 
     public static boolean checkArtistExists(Context context, Uri artist) {
         String artistId = artist.getLastPathSegment();
-        String selection = MediaStore.Audio.Media.ARTIST_ID + " = " + Integer.valueOf(artistId).intValue();
+        String selection = MediaStore.Audio.Media.ARTIST_ID + " = " + Long.valueOf(artistId).longValue();
 
         String[] projection = {
                 MediaStore.Audio.Media._ID,
@@ -1116,7 +1116,7 @@ public class Utils {
 
     public static List<Uri> getPlaylistSongs(Context context, Uri playlist) {
         String playlistId = playlist.getLastPathSegment();
-        String selection = MediaStore.Audio.Playlists._ID + " = " + Integer.valueOf(playlistId).intValue();
+        String selection = MediaStore.Audio.Playlists._ID + " = " + Long.valueOf(playlistId).longValue();
 
         String[] projection = {
                 MediaStore.Audio.Playlists._ID,
@@ -1159,7 +1159,7 @@ public class Utils {
 
     public static boolean checkPlaylistExists(Context context, Uri playlist) {
         String playlistId = playlist.getLastPathSegment();
-        String selection = MediaStore.Audio.Playlists._ID + " = " + Integer.valueOf(playlistId).intValue();
+        String selection = MediaStore.Audio.Playlists._ID + " = " + Long.valueOf(playlistId).longValue();
 
         String[] projection = {
                 MediaStore.Audio.Playlists._ID,
@@ -1177,7 +1177,7 @@ public class Utils {
 
     public static String resolveTrack(Context context, Uri track) {
         String trackId = track.getLastPathSegment();
-        String selection = MediaStore.Audio.Media._ID + " = " + Integer.valueOf(trackId).intValue();
+        String selection = MediaStore.Audio.Media._ID + " = " + Long.valueOf(trackId).longValue();
 
         String[] projection = {
                 MediaStore.Audio.Media._ID,
