@@ -39,12 +39,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.omnirom.deskclock.alarms.AlarmStateManager;
 import org.omnirom.deskclock.provider.Alarm;
@@ -80,7 +83,7 @@ public class DeskClock extends AppCompatActivity implements LabelDialogFragment.
     private ImageView mLeftButton;
     private ImageView mRightButton;
     private int mSelectedTab = -1;
-    private SlidingTabLayout mSlidingTabs;
+    private BottomNavigationView mBottomView;
     private ActionableToastBar mUndoBar;
     private View mUndoFrame;
     private LinearLayout mFabButtons;
@@ -163,14 +166,60 @@ public class DeskClock extends AppCompatActivity implements LabelDialogFragment.
             mTabsAdapter = new TabsAdapter(this, mViewPager);
             createTabs();
 
-            // Assiging the Sliding Tab Layout View
-            mSlidingTabs = (SlidingTabLayout) findViewById(R.id.desk_clock_tabs);
-            mSlidingTabs.setDeskClock(this);
-            mSlidingTabs.setCustomTabView(R.layout.tab_strip_item, R.id.tab_strip_title, R.id.tab_strip_image);
+            // Assiging the BottomNav
+            mBottomView = (BottomNavigationView) findViewById(R.id.bottom_view);
+            mBottomView.setBackgroundColor(Utils.getViewBackgroundColor(this));
+            mBottomView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    int id = item.getItemId();
+                    int position = -1;
+                    if (id == R.id.page_alarm) {
+                        position = 0;
+                    } else if (id == R.id.page_clock) {
+                        position = 1;
+                    } else if (id == R.id.page_timer) {
+                        position = 2;
+                    } else if (id == R.id.page_stopwatch) {
+                        position = 3;
+                    }
 
-            // Setting the ViewPager For the SlidingTabsLayout
-            mSlidingTabs.setViewPager(mViewPager);
-            mSlidingTabs.setOnPageChangeListener(mTabsAdapter);
+                    if (position != -1) {
+                        mViewPager.setCurrentItem(position);
+                        mTabsAdapter.onPageSelected(position);
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int newPage) {
+                    int id = -1;
+                    if (newPage == 0) {
+                        id = R.id.page_alarm;
+                    } else if (newPage == 1) {
+                        id = R.id.page_clock;
+                    } else if (newPage == 2) {
+                        id = R.id.page_timer;
+                    } else if (newPage == 3) {
+                        id = R.id.page_stopwatch;
+                    }
+                    if (id != -1) {
+                        mBottomView.setSelectedItemId(id);
+                    }
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
         }
 
         mFab.setOnClickListener(new OnClickListener() {
