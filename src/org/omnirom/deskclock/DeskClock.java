@@ -59,7 +59,6 @@ import org.omnirom.deskclock.timer.TimerObj;
 import org.omnirom.deskclock.timer.TimerReceiver;
 import org.omnirom.deskclock.timer.Timers;
 import org.omnirom.deskclock.widget.ActionableToastBar;
-import org.omnirom.deskclock.widget.SlidingTabLayout;
 
 import java.util.ArrayList;
 import java.util.HashSet;
