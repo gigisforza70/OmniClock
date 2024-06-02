@@ -16,9 +16,10 @@
 
 package org.omnirom.deskclock.timer;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.SharedPreferences;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.ArrayList;
 import java.util.Collections;

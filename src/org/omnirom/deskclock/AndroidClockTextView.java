@@ -20,12 +20,13 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  * Displays text using the special AndroidClock font.
  */
-public class AndroidClockTextView extends TextView {
+public class AndroidClockTextView extends AppCompatTextView {
 
     private static final String SYSTEM = "/system/fonts/";
     private static final String SYSTEM_FONT_TIME_BACKGROUND = SYSTEM + "AndroidClock.ttf";

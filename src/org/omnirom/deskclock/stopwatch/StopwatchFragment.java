@@ -34,17 +34,18 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
-import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.ListPopupWindow;
+
 import org.omnirom.deskclock.CircleButtonsLayout;
 import org.omnirom.deskclock.CircleTimerView;
+import org.omnirom.deskclock.CountingTimerView;
 import org.omnirom.deskclock.DeskClock;
 import org.omnirom.deskclock.DeskClockFragment;
 import org.omnirom.deskclock.LogUtils;
 import org.omnirom.deskclock.Utils;
-import org.omnirom.deskclock.CountingTimerView;
 
 import java.util.ArrayList;
 

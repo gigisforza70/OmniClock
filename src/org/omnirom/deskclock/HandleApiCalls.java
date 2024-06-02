@@ -16,7 +16,19 @@
 
 package org.omnirom.deskclock;
 
-import android.app.Activity;
+import static android.provider.AlarmClock.ACTION_SET_ALARM;
+import static android.provider.AlarmClock.ACTION_SET_TIMER;
+import static android.provider.AlarmClock.ACTION_SHOW_ALARMS;
+import static android.provider.AlarmClock.EXTRA_DAYS;
+import static android.provider.AlarmClock.EXTRA_HOUR;
+import static android.provider.AlarmClock.EXTRA_LENGTH;
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+import static android.provider.AlarmClock.EXTRA_MINUTES;
+import static android.provider.AlarmClock.EXTRA_RINGTONE;
+import static android.provider.AlarmClock.EXTRA_SKIP_UI;
+import static android.provider.AlarmClock.EXTRA_VIBRATE;
+import static android.provider.AlarmClock.VALUE_RINGTONE_SILENT;
+
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +38,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.omnirom.deskclock.alarms.AlarmStateManager;
 import org.omnirom.deskclock.provider.Alarm;
@@ -40,20 +54,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static android.provider.AlarmClock.ACTION_SET_ALARM;
-import static android.provider.AlarmClock.ACTION_SET_TIMER;
-import static android.provider.AlarmClock.ACTION_SHOW_ALARMS;
-import static android.provider.AlarmClock.EXTRA_DAYS;
-import static android.provider.AlarmClock.EXTRA_HOUR;
-import static android.provider.AlarmClock.EXTRA_LENGTH;
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
-import static android.provider.AlarmClock.EXTRA_MINUTES;
-import static android.provider.AlarmClock.EXTRA_RINGTONE;
-import static android.provider.AlarmClock.EXTRA_SKIP_UI;
-import static android.provider.AlarmClock.EXTRA_VIBRATE;
-import static android.provider.AlarmClock.VALUE_RINGTONE_SILENT;
-
-public class HandleApiCalls extends Activity {
+public class HandleApiCalls extends AppCompatActivity {
 
     public static final long TIMER_MIN_LENGTH = 1000;
     public static final long TIMER_MAX_LENGTH = 24 * 60 * 60 * 1000;

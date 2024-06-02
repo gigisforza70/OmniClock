@@ -18,14 +18,11 @@ package org.omnirom.deskclock;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.LoaderManager;
-import android.app.TimePickerDialog;
+import androidx.loader.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.Loader;
+import androidx.loader.content.Loader;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -39,10 +36,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-
-import androidx.legacy.app.FragmentCompat;
-import androidx.core.content.ContextCompat;
-import androidx.cardview.widget.CardView;
 import android.text.TextUtils;
 import android.transition.AutoTransition;
 import android.transition.Transition;
@@ -63,6 +56,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import org.omnirom.deskclock.alarms.AlarmStateManager;
 import org.omnirom.deskclock.alarms.TimePickerDialogFragment;
@@ -151,7 +149,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        mCursorLoader = getLoaderManager().initLoader(0, null, this);
+        mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
     }
 
     @Override
@@ -1336,7 +1334,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 for (int i = 0; i < count; i++) {
                     permissionArray[i] = permissionList.get(i);
                 }
-                FragmentCompat.requestPermissions(this, permissionArray, PERMISSIONS_REQUEST_EXTERNAL_STORAGE);
+                requestPermissions(permissionArray, PERMISSIONS_REQUEST_EXTERNAL_STORAGE);
             }
         } else {
             runAfter.run();

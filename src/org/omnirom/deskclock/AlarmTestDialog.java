@@ -18,21 +18,22 @@
 
 package org.omnirom.deskclock;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
+import androidx.fragment.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.omnirom.deskclock.alarms.TestAlarmKlaxon;
 import org.omnirom.deskclock.provider.Alarm;
@@ -183,7 +184,7 @@ public class AlarmTestDialog extends DialogFragment implements
     }
 
     private View createDialogView() {
-        final Activity activity = getActivity();
+        final AppCompatActivity activity = (AppCompatActivity) getActivity();
         final LayoutInflater inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = inflater

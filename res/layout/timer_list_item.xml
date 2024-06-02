@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/big_font_size"
             android:layout_gravity="center"
-            android:background="?android:attr/selectableItemBackgroundBorderless" />
+            android:background="?attr/selectableItemBackgroundBorderless" />
 
         <FrameLayout
             android:id="@+id/timer_label"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="0dip"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/label">
 
             <TextView
@@ -81,7 +81,7 @@
             android:layout_width="50dip"
             android:layout_height="50dip"
             android:layout_gravity="bottom|center_horizontal"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/timer_plus_one"
             android:gravity="center" />
 

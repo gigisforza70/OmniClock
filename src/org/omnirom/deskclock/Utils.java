@@ -48,7 +48,6 @@ import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
-import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -61,9 +60,10 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.webkit.MimeTypeMap;
-import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
+
+import androidx.core.view.MenuItemCompat;
 
 import org.omnirom.deskclock.alarms.AlarmConstants;
 import org.omnirom.deskclock.provider.Alarm;
@@ -83,7 +83,6 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringBufferInputStream;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -178,7 +177,7 @@ public class Utils {
         // Set the intent to the help menu item, show the help menu item in the overflow
         // menu, and make it visible.
         helpMenuItem.setIntent(intent);
-        helpMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        MenuItemCompat.setShowAsAction(helpMenuItem, MenuItem.SHOW_AS_ACTION_NEVER);
         helpMenuItem.setVisible(true);
     }
 

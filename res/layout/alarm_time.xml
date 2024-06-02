@@ -51,15 +51,15 @@
                     android:layout_height="28dp"
                     android:layout_gravity="center_vertical"
                     android:scaleType="fitXY"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_alarm"/>
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    dc:srcCompat="@drawable/ic_alarm"/>
 
                 <org.omnirom.deskclock.widget.TextTime
                     android:id="@+id/digital_clock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:paddingStart="10dip"
                     style="@style/TextAppearanceAlarmTime" />
 
@@ -73,10 +73,10 @@
                     android:layout_width="40dip"
                     android:layout_height="40dip"
                     android:layout_gravity="top|end"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/expand_alarm"
                     android:scaleType="center"
-                    android:src="@drawable/ic_expand_down" />
+                    dc:srcCompat="@drawable/ic_expand_down" />
 
             </LinearLayout>
 
@@ -134,7 +134,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingEnd="20dp"
-                        android:background="?android:attr/selectableItemBackground"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:ellipsize="start"
                         android:gravity="center_vertical"
@@ -165,7 +165,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingEnd="20dp"
-                        android:background="?android:attr/selectableItemBackground"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:ellipsize="start"
                         android:gravity="center_vertical"
@@ -226,7 +226,7 @@
                             android:singleLine="true"
                             android:drawableStart="@drawable/ic_alarm_label"
                             android:drawablePadding="4dp"
-                            android:background="?android:attr/selectableItemBackgroundBorderless" />
+                            android:background="?attr/selectableItemBackgroundBorderless" />
 
                         <TextView
                             android:id="@+id/daysOfWeek"
@@ -252,10 +252,10 @@
                         android:id="@+id/clone"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/clone_alarm"
                         android:gravity="center_vertical"
-                        android:src="@drawable/ic_clone_alarm" />
+                        dc:srcCompat="@drawable/ic_clone_alarm" />
 
                     <Space
                         android:layout_width="10dp"
@@ -265,10 +265,10 @@
                         android:id="@+id/delete"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/delete_alarm"
                         android:gravity="center_vertical"
-                        android:src="@drawable/ic_delete" />
+                        dc:srcCompat="@drawable/ic_delete" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

@@ -16,10 +16,10 @@
 
 package org.omnirom.deskclock;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
+import androidx.fragment.app.DialogFragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,8 +31,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.content.DialogInterface;
-import android.content.Context;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.omnirom.deskclock.provider.Alarm;
 import org.omnirom.deskclock.timer.TimerObj;
@@ -154,7 +155,7 @@ public class LabelDialogFragment extends DialogFragment implements
     }
 
     private void set(Alarm alarm, String tag, String label) {
-        final Activity activity = getActivity();
+        final AppCompatActivity activity = (AppCompatActivity) getActivity();
         // TODO just pass in a listener in newInstance()
         if (activity instanceof AlarmLabelDialogHandler) {
             ((DeskClock) getActivity()).onDialogLabelSet(alarm, label, tag);
@@ -166,7 +167,7 @@ public class LabelDialogFragment extends DialogFragment implements
     }
 
     private void set(TimerObj timer, String tag, String label) {
-        final Activity activity = getActivity();
+        final AppCompatActivity activity = (AppCompatActivity) getActivity();
         // TODO just pass in a listener in newInstance()
         if (activity instanceof TimerLabelDialogHandler){
             ((DeskClock) getActivity()).onDialogLabelSet(timer, label, tag);

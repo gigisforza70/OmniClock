@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
@@ -14,7 +15,7 @@
         android:scaleType="fitXY"
         android:layout_marginEnd="16dip"
         android:contentDescription="@null"
-        android:src="@mipmap/ic_launcher_alarmclock"
+        app:srcCompat="@mipmap/ic_launcher_alarmclock"
         android:layout_rowSpan="2"
         android:layout_gravity="center_vertical"/>
 
@@ -23,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textColor="?android:attr/textColorPrimary"
         android:text="@string/app_label_new"
         android:layout_gravity="center_vertical"/>
@@ -33,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textColor="?android:attr/textColorSecondary"
         android:layout_gravity="center_vertical"/>
 

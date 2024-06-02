@@ -16,7 +16,6 @@
 
 package org.omnirom.deskclock;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -32,9 +31,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextClock;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.omnirom.deskclock.Utils.ScreensaverMoveSaverRunnable;
 
-public class ScreensaverActivity extends Activity {
+public class ScreensaverActivity extends AppCompatActivity {
     static final boolean DEBUG = false;
     static final String TAG = "DeskClock/ScreensaverActivity";
 

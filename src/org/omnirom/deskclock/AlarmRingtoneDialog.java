@@ -18,15 +18,8 @@
 
 package org.omnirom.deskclock;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -37,22 +30,29 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.legacy.app.FragmentCompat;
-import androidx.core.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.LinearLayout;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import org.omnirom.deskclock.alarms.AlarmConstants;
 import org.omnirom.deskclock.provider.Alarm;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class AlarmRingtoneDialog extends DialogFragment implements
         DialogInterface.OnClickListener,
@@ -229,7 +229,7 @@ public class AlarmRingtoneDialog extends DialogFragment implements
     }
 
     private View createDialogView() {
-        final Activity activity = getActivity();
+        final AppCompatActivity activity = (AppCompatActivity) getActivity();
         final LayoutInflater inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = inflater
@@ -397,7 +397,7 @@ public class AlarmRingtoneDialog extends DialogFragment implements
                 for (int i = 0; i < count; i++) {
                     permissionArray[i] = permissionList.get(i);
                 }
-                FragmentCompat.requestPermissions(this, permissionArray, PERMISSIONS_REQUEST_EXTERNAL_STORAGE);
+                requestPermissions(permissionArray, PERMISSIONS_REQUEST_EXTERNAL_STORAGE);
             }
         } else {
             runAfter.run();

@@ -17,15 +17,15 @@
 package org.omnirom.deskclock.alarms;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import androidx.fragment.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.Calendar;
 

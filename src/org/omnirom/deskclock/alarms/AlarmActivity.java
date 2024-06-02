@@ -21,13 +21,12 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -42,24 +41,26 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Interpolator;
 import android.view.animation.PathInterpolator;
-import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
 
-import org.omnirom.deskclock.R;
+import androidx.appcompat.app.AppCompatActivity;
+
+import org.omnirom.deskclock.AlarmUtils;
 import org.omnirom.deskclock.AnimatorUtils;
 import org.omnirom.deskclock.LogUtils;
+import org.omnirom.deskclock.R;
 import org.omnirom.deskclock.SettingsActivity;
 import org.omnirom.deskclock.Utils;
-import org.omnirom.deskclock.AlarmUtils;
 import org.omnirom.deskclock.provider.AlarmInstance;
 
-public class AlarmActivity extends Activity implements View.OnClickListener, View.OnTouchListener {
+public class AlarmActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
 
     private static final String LOGTAG = AlarmActivity.class.getSimpleName();
 

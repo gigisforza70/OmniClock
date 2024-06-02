@@ -16,10 +16,11 @@
 
 package org.omnirom.deskclock;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import org.omnirom.deskclock.alarms.TimePickerDialogFragment;
 import org.omnirom.deskclock.provider.Alarm;

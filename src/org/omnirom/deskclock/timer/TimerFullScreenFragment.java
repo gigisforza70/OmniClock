@@ -21,9 +21,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -48,6 +45,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import org.omnirom.deskclock.CircleButtonsLayout;
 import org.omnirom.deskclock.CountingTimerView;
 import org.omnirom.deskclock.DeskClock;
@@ -57,8 +58,8 @@ import org.omnirom.deskclock.LogUtils;
 import org.omnirom.deskclock.TimerSetupView;
 import org.omnirom.deskclock.Utils;
 import org.omnirom.deskclock.widget.sgv.GridAdapter;
-import org.omnirom.deskclock.widget.sgv.StaggeredGridView;
 import org.omnirom.deskclock.widget.sgv.SgvAnimationHelper;
+import org.omnirom.deskclock.widget.sgv.StaggeredGridView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -257,7 +258,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
                 labelIcon.setVisibility(View.GONE);
             }
             if (getActivity() instanceof DeskClock) {
-                label.setOnTouchListener(new DeskClock.OnTapListener(getActivity(), labelText) {
+                label.setOnTouchListener(new DeskClock.OnTapListener((AppCompatActivity) getActivity(), labelText) {
                     @Override
                     protected void processClick(View v) {
                         onLabelPressed(o);
@@ -542,7 +543,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
     }
 
     private  void revealAnimation(final View centerView, int color) {
-        final Activity activity = getActivity();
+        final AppCompatActivity activity = (AppCompatActivity) getActivity();
         final View decorView = activity.getWindow().getDecorView();
         final ViewGroupOverlay overlay = (ViewGroupOverlay) decorView.getOverlay();
 

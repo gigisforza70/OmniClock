@@ -16,9 +16,6 @@
 
 package org.omnirom.deskclock;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,11 +27,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import androidx.legacy.app.ActivityCompat;
-import androidx.legacy.app.FragmentPagerAdapter;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +38,13 @@ import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import org.omnirom.deskclock.alarms.AlarmStateManager;
 import org.omnirom.deskclock.provider.Alarm;
@@ -66,7 +65,7 @@ import java.util.TimeZone;
 /**
  * DeskClock clock view for desk docks.
  */
-public class DeskClock extends Activity implements LabelDialogFragment.TimerLabelDialogHandler,
+public class DeskClock extends AppCompatActivity implements LabelDialogFragment.TimerLabelDialogHandler,
         LabelDialogFragment.AlarmLabelDialogHandler {
     private static final boolean DEBUG = false;
     private static final String LOG_TAG = "DeskClock";
@@ -158,7 +157,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         mUndoFrame = findViewById(R.id.undo_frame);
 
         if (mTabsAdapter == null) {
-            getActionBar().setElevation(0);
+            getSupportActionBar().setElevation(0);
             mViewPager = (ViewPager) findViewById(R.id.desk_clock_pager);
             mViewPager.setOffscreenPageLimit(4);
             mTabsAdapter = new TabsAdapter(this, mViewPager);
@@ -377,8 +376,8 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         // Used for doing callbacks to fragments.
         private HashSet<String> mFragmentTags = new HashSet<String>();
 
-        public TabsAdapter(Activity activity, ViewPager pager) {
-            super(activity.getFragmentManager());
+        public TabsAdapter(AppCompatActivity activity, ViewPager pager) {
+            super(activity.getSupportFragmentManager());
             mContext = activity;
             mPager = pager;
             mPager.setAdapter(this);
@@ -389,7 +388,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
             // Because this public method is called outside many times,
             // check if it exits first before creating a new one.
             final String name = makeFragmentName(R.id.desk_clock_pager, position);
-            Fragment fragment = getFragmentManager().findFragmentByTag(name);
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(name);
             if (fragment == null) {
                 TabInfo info = mTabs.get(position);
                 fragment = Fragment.instantiate(mContext, info.mClss.getName(), null);
@@ -446,7 +445,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
 
         private void notifyPageChanged(int newPage) {
             for (String tag : mFragmentTags) {
-                final FragmentManager fm = getFragmentManager();
+                final FragmentManager fm = getSupportFragmentManager();
                 DeskClockFragment f = (DeskClockFragment) fm.findFragmentByTag(tag);
                 if (f != null) {
                     f.onPageChanged(newPage);
@@ -477,7 +476,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         private final float MAX_MOVEMENT_ALLOWED = 20;
         private final long MAX_TIME_ALLOWED = 500;
 
-        public OnTapListener(Activity activity, TextView makePressedView) {
+        public OnTapListener(AppCompatActivity activity, TextView makePressedView) {
             mMakePressedTextView = makePressedView;
             mPressedColor = activity.getResources().getColor(Utils.getPressedColorId());
             mGrayColor = activity.getResources().getColor(Utils.getGrayColorId());
@@ -539,7 +538,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
      */
     @Override
     public void onDialogLabelSet(TimerObj timer, String label, String tag) {
-        Fragment frag = getFragmentManager().findFragmentByTag(tag);
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
         if (frag instanceof TimerFragment) {
             ((TimerFragment) frag).setLabel(timer, label);
         }
@@ -550,7 +549,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
      */
     @Override
     public void onDialogLabelSet(Alarm alarm, String label, String tag) {
-        Fragment frag = getFragmentManager().findFragmentByTag(tag);
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
         if (frag instanceof AlarmClockFragment) {
             ((AlarmClockFragment) frag).setLabel(alarm, label);
         }
@@ -636,7 +635,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
                 mHander.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        ActivityCompat.requestPermissions(DeskClock.this, permissionArray, PERMISSIONS_REQUEST_EXTERNAL_STORAGE);
+                        requestPermissions(permissionArray, PERMISSIONS_REQUEST_EXTERNAL_STORAGE);
                     }
                 }, 1000);
             }

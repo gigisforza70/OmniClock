@@ -16,7 +16,6 @@
 
 package org.omnirom.deskclock.preference;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,6 +26,8 @@ import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import org.omnirom.deskclock.widget.ColorPickerDialog;
 

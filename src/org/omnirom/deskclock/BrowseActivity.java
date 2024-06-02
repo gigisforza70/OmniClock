@@ -18,8 +18,7 @@
 package org.omnirom.deskclock;
 
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.app.Fragment;
+import androidx.fragment.app.DialogFragment;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -33,10 +32,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-
-import androidx.annotation.NonNull;
-import androidx.legacy.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -48,8 +43,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SearchView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -62,7 +62,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class BrowseActivity extends Activity implements SearchView.OnQueryTextListener,
+public class BrowseActivity extends AppCompatActivity implements SearchView.OnQueryTextListener,
         StorageChooserDialog.ChosenStorageListener, PlaylistDialogFragment.PlaylistDialogHandler {
 
     public static final int QUERY_TYPE_ALARM = 0;
@@ -130,7 +130,7 @@ public class BrowseActivity extends Activity implements SearchView.OnQueryTextLi
         }
 
         super.onCreate(savedInstanceState);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mPrimaryColor = getResources().getColor(android.R.color.white);
         mPrimaryColorDisabled = Utils.setColorAlpha(mPrimaryColor,
@@ -178,6 +178,8 @@ public class BrowseActivity extends Activity implements SearchView.OnQueryTextLi
         });
 
         mBottomNavigationView = findViewById(R.id.bottom_view);
+        //TODO: theme adjustable color (see start of onCreate)
+        mBottomNavigationView.setBackgroundColor(Utils.getViewBackgroundColor(this));
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -1188,13 +1190,13 @@ public class BrowseActivity extends Activity implements SearchView.OnQueryTextLi
             mAlarm.alert = Uri.parse(uri);
             final AlarmTestDialog fragment = AlarmTestDialog.newInstance(mAlarm, mPreAlarm,
                     name, iconId);
-            fragment.show(getFragmentManager(), "alarm_test");
+            fragment.show(getSupportFragmentManager(), "alarm_test");
         }
     }
 
 
     private void closeAlarmTestDialog() {
-        final Fragment prev = getFragmentManager().findFragmentByTag("alarm_test");
+        final Fragment prev = getSupportFragmentManager().findFragmentByTag("alarm_test");
         if (prev != null) {
             ((DialogFragment) prev).dismiss();
         }
@@ -1333,11 +1335,11 @@ public class BrowseActivity extends Activity implements SearchView.OnQueryTextLi
         closeStoragePicker();
 
         final StorageChooserDialog fragment = StorageChooserDialog.newInstance(this);
-        fragment.show(getFragmentManager(), "choose_dialog");
+        fragment.show(getSupportFragmentManager(), "choose_dialog");
     }
 
     private void closeStoragePicker() {
-        final Fragment prev = getFragmentManager().findFragmentByTag("choose_dialog");
+        final Fragment prev = getSupportFragmentManager().findFragmentByTag("choose_dialog");
         if (prev != null) {
             ((DialogFragment) prev).dismiss();
         }
@@ -1378,7 +1380,7 @@ public class BrowseActivity extends Activity implements SearchView.OnQueryTextLi
                 for (int i = 0; i < count; i++) {
                     permissionArray[i] = permissionList.get(i);
                 }
-                ActivityCompat.requestPermissions(this, permissionArray, PERMISSIONS_REQUEST_EXTERNAL_STORAGE);
+                requestPermissions(permissionArray, PERMISSIONS_REQUEST_EXTERNAL_STORAGE);
             }
         } else {
             mHasStoragePerms = true;
@@ -1476,11 +1478,11 @@ public class BrowseActivity extends Activity implements SearchView.OnQueryTextLi
     private void showPlaylistDialog() {
         closePlaylistDialog();
         final PlaylistDialogFragment newFragment = PlaylistDialogFragment.newInstance(this);
-        newFragment.show(getFragmentManager(), "playlist_dialog");
+        newFragment.show(getSupportFragmentManager(), "playlist_dialog");
     }
 
     private void closePlaylistDialog() {
-        final Fragment prev = getFragmentManager().findFragmentByTag("playlist_dialog");
+        final Fragment prev = getSupportFragmentManager().findFragmentByTag("playlist_dialog");
         if (prev != null) {
             ((DialogFragment) prev).dismiss();
         }

@@ -14,7 +14,8 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License
   -->
-<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+<merge xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <ImageView
         android:id="@+id/description_icon"
@@ -23,7 +24,7 @@
         android:layout_gravity="center_vertical"
         android:paddingLeft="16dip"
         android:paddingStart="16dip"
-        android:src="@drawable/ic_undo"
+        app:srcCompat="@drawable/ic_undo"
         android:contentDescription="@string/alarm_undo" />
 
     <TextView
@@ -44,7 +45,7 @@
         android:id="@+id/action_button"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="?attr/selectableItemBackground"
         android:clickable="true" >
 
         <ImageView
@@ -54,7 +55,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="4dip"
             android:layout_marginEnd="4dip"
-            android:src="@drawable/ic_undo"
+            app:srcCompat="@drawable/ic_undo"
             android:contentDescription="@null" />
 
         <TextView

@@ -43,7 +43,10 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 
+import androidx.core.app.NotificationCompat;
+
 import org.omnirom.deskclock.LogUtils;
+import org.omnirom.deskclock.NotificationChannelManager;
 import org.omnirom.deskclock.SettingsActivity;
 import org.omnirom.deskclock.Utils;
 import org.omnirom.deskclock.provider.AlarmInstance;
@@ -570,7 +573,7 @@ public class AlarmKlaxon {
     }
 
     private static void createOfflineNotification(final Context context) {
-        Notification.Builder builder = new Notification.Builder(context);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationChannelManager.Channel.DEFAULT_NOTIFICATION);
         builder.setContentTitle(context.getResources().getString(org.omnirom.deskclock.R.string.offline_notif_title))
                 .setContentText(context.getResources().getString(org.omnirom.deskclock.R.string.offline_notif_message))
                 .setSmallIcon(org.omnirom.deskclock.R.drawable.ic_notif_alarm)
@@ -578,6 +581,7 @@ public class AlarmKlaxon {
                 .setColor(context.getResources().getColor(org.omnirom.deskclock.R.color.primary));
 
         Notification notification = builder.build();
+        NotificationChannelManager.applyChannel(builder, context, NotificationChannelManager.Channel.DEFAULT_NOTIFICATION);
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.cancel(OFFLINE_NOTIFICATION_ID);
         nm.notify(OFFLINE_NOTIFICATION_ID, notification);

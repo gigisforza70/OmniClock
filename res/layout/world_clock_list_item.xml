@@ -35,14 +35,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="?android:attr/selectableItemBackgroundBorderless" >
+            android:background="?attr/selectableItemBackgroundBorderless" >
 
             <ImageView
                 android:id="@+id/world_clock_item_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_earth_primary"/>
+                cardview:srcCompat="@drawable/ic_earth_primary"/>
 
             <LinearLayout
                 android:id="@+id/city_name_layout"

@@ -16,18 +16,17 @@
 
 package org.omnirom.deskclock.timer;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.collection.SparseArrayCompat;
-import androidx.legacy.app.FragmentCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 
 /**
- * Forked from support lib's {@link androidx.legacy.app.FragmentStatePagerAdapter}, with some minor
+ * Forked from support lib's {@link androidx.fragment.app.FragmentStatePagerAdapter}, with some minor
  * changes that couldn't be accomplished through subclassing: we need to override the
  * onDataSetChanged method using the private member mFragments which cannot be accessed outside.
  *
@@ -123,8 +122,8 @@ public abstract class FragmentStatePagerAdapter2 extends PagerAdapter {
     }
 
     public void setItemVisible(Fragment item, boolean visible) {
-        FragmentCompat.setMenuVisibility(item, visible);
-        FragmentCompat.setUserVisibleHint(item, visible);
+        item.setMenuVisibility(visible);
+        item.setUserVisibleHint(visible);
     }
 
     @Override
