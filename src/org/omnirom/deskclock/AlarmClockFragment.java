@@ -21,6 +21,7 @@ import android.animation.ObjectAnimator;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.LoaderManager;
+import android.app.TimePickerDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -64,14 +65,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.omnirom.deskclock.alarms.AlarmStateManager;
+import org.omnirom.deskclock.alarms.TimePickerDialogFragment;
 import org.omnirom.deskclock.provider.Alarm;
 import org.omnirom.deskclock.provider.AlarmInstance;
 import org.omnirom.deskclock.provider.DaysOfWeek;
 import org.omnirom.deskclock.widget.ActionableToastBar;
 import org.omnirom.deskclock.widget.ExpandAnimation;
 import org.omnirom.deskclock.widget.TextTime;
-import org.omnirom.deskclock.widget.mdtp.time.RadialPickerLayout;
-import org.omnirom.deskclock.widget.mdtp.time.TimePickerDialog;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ import java.util.Locale;
  */
 public class AlarmClockFragment extends DeskClockFragment implements
         LoaderManager.LoaderCallbacks<Cursor>,
-        TimePickerDialog.OnTimeSetListener,
+        TimePickerDialogFragment.OnTimeSetListener,
         View.OnTouchListener,
         AlarmRingtoneDialog.AlarmRingtoneDialogListener {
     private static final float EXPAND_DECELERATION = 1f;
@@ -306,7 +306,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
     // Callback used by TimePickerDialog
     @Override
-    public void onTimeSet(RadialPickerLayout timePicker, int hourOfDay, int minute, int seconds) {
+    public void onTimeSet(int hourOfDay, int minute) {
         if (mCloneAlarm && mSelectedAlarm != null) {
             cloneAlarm(mSelectedAlarm, hourOfDay, minute);
             mSelectedAlarm = null;

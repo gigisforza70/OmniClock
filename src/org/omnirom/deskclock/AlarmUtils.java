@@ -17,15 +17,13 @@
 package org.omnirom.deskclock;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
+import org.omnirom.deskclock.alarms.TimePickerDialogFragment;
 import org.omnirom.deskclock.provider.Alarm;
 import org.omnirom.deskclock.provider.AlarmInstance;
-import org.omnirom.deskclock.widget.mdtp.time.TimePickerDialog;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -64,14 +62,6 @@ public class AlarmUtils {
      * @param alarm The clicked alarm, it can be null if user was clicking the fab instead.
      */
     public static void showTimeEditDialog(Fragment fragment, final Alarm alarm) {
-        final FragmentManager manager = fragment.getFragmentManager();
-        final FragmentTransaction ft = manager.beginTransaction();
-        final Fragment prev = manager.findFragmentByTag(FRAG_TAG_TIME_PICKER);
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.commit();
-
         final int hour, minute;
         if (alarm == null) {
             final Calendar c = Calendar.getInstance();
@@ -81,10 +71,7 @@ public class AlarmUtils {
             hour = alarm.hour;
             minute = alarm.minutes;
         }
-        final TimePickerDialog timePickerFragment = TimePickerDialog.newInstance((TimePickerDialog.OnTimeSetListener)fragment,
-                hour, minute, DateFormat.is24HourFormat(fragment.getActivity()),
-                Utils.getThemeId(fragment.getActivity()));
-        timePickerFragment.show(manager, FRAG_TAG_TIME_PICKER);
+        TimePickerDialogFragment.show(fragment, hour, minute);
     }
 
     /**

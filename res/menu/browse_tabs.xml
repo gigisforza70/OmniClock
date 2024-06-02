@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tab_recent"
+        android:icon="@drawable/ic_star_white"
+        android:title="@string/local_query_recent" />
+
+    <item
+        android:id="@+id/tab_alarms"
+        android:icon="@drawable/ic_alarm_white"
+        android:title="@string/local_query_alarm_ringtones" />
+
+    <item
+        android:id="@+id/tab_artist"
+        android:icon="@drawable/ic_artist_white"
+        android:title="@string/local_query_artist" />
+
+    <item
+        android:id="@+id/tab_album"
+        android:icon="@drawable/ic_album_white"
+        android:title="@string/local_query_album" />
+
+    <item
+        android:id="@+id/tab_track"
+        android:icon="@drawable/ic_track_white"
+        android:title="@string/local_query_track" />
+
+    <item
+        android:id="@+id/tab_playlist"
+        android:icon="@drawable/ic_playlist_white"
+        android:title="@string/local_query_playlist" />
+
+    <item
+        android:id="@+id/tab_stream"
+        android:icon="@drawable/ic_earth_white"
+        android:title="@string/local_query_stream" />
+
+    <item
+        android:id="@+id/tab_folder"
+        android:icon="@drawable/ic_folder_white"
+        android:title="@string/local_query_folder" />
+
+</menu>
