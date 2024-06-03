@@ -206,12 +206,12 @@ public class TestAlarmKlaxon {
             if (sStreamMediaMode) {
                 IntentFilter intentFilter = new IntentFilter();
                 intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-                context.registerReceiver(sNetworkListener, intentFilter);
+                Utils.registerReceiver(sNetworkListener, intentFilter, Context.RECEIVER_EXPORTED, context);
             }
         }
     }
 
-    public static void stopTest(Alarm instance) {
+    public static void stopTest() {
         if (!sTestStarted) {
             return;
         }

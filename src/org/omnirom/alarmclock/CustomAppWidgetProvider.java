@@ -72,7 +72,7 @@ public class CustomAppWidgetProvider extends AppWidgetProvider {
             super.onCreate();
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(Intent.ACTION_TIME_TICK);
-            registerReceiver(mClockChangedReceiver, intentFilter);
+            Utils.registerReceiver(mClockChangedReceiver, intentFilter, RECEIVER_EXPORTED, this);
         }
 
         @Override

@@ -296,7 +296,7 @@ public class AlarmKlaxon {
         if (sStreamMediaMode) {
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-            context.registerReceiver(sNetworkListener, intentFilter);
+            Utils.registerReceiver(sNetworkListener, intentFilter, Context.RECEIVER_EXPORTED, context);
         }
     }
 

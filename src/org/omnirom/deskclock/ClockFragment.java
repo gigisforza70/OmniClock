@@ -192,7 +192,7 @@ public class ClockFragment extends DeskClockFragment {
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         filter.addAction(Intent.ACTION_LOCALE_CHANGED);
-        activity.registerReceiver(mIntentReceiver, filter);
+        Utils.registerReceiver(mIntentReceiver, filter, activity.RECEIVER_EXPORTED, activity);
 
         // Resume can invoked after changing the cities list or a change in locale
         if (mAdapter != null) {

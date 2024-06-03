@@ -258,7 +258,8 @@ public class DeskClock extends AppCompatActivity implements LabelDialogFragment.
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(COLOR_THEME_UPDATE_INTENT);
-        registerReceiver(mColorThemeReceiver, intentFilter);
+
+        Utils.registerReceiver(mColorThemeReceiver, intentFilter, RECEIVER_NOT_EXPORTED, this);
 
         setTheme(Utils.getThemeResourceId(this));
 

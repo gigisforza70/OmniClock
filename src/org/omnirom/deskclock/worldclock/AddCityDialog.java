@@ -297,7 +297,7 @@ public class AddCityDialog implements OnClickListener,
         IntentFilter filter = new IntentFilter();
         filter.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        context.registerReceiver(mReceiver, filter);
+        Utils.registerReceiver(mReceiver, filter, Context.RECEIVER_EXPORTED, context);
         mReceiverRegistered = true;
     }
 

@@ -21,9 +21,11 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
 import android.app.AlarmManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -148,6 +150,10 @@ public class Utils {
      */
     public static boolean isNougatOrLater() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
+    }
+
+    public static boolean isTOrLater() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU;
     }
 
     public static boolean isLollipopMR1OrLater() {
@@ -1669,6 +1675,14 @@ public class Utils {
             pref.edit().remove(SettingsActivity.KEY_ALARM_SNOOZE_OLD).commit();
         }
         return pref.getInt(SettingsActivity.KEY_ALARM_SNOOZE_MINUTES, AlarmInstance.DEFAULT_ALARM_TIMEOUT_SETTING);
+    }
+
+    public static Intent registerReceiver(BroadcastReceiver receiver, IntentFilter filter, int flags, Context context) {
+        if (isTOrLater()) {
+            return context.registerReceiver(receiver, filter, flags);
+        } else {
+            return context.registerReceiver(receiver, filter);
+        }
     }
 }
 

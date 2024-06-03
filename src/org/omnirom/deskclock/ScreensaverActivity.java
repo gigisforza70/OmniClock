@@ -114,7 +114,7 @@ public class ScreensaverActivity extends AppCompatActivity {
         filter.addAction(Intent.ACTION_USER_PRESENT);
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        registerReceiver(mIntentReceiver, filter);
+        Utils.registerReceiver(mIntentReceiver, filter, RECEIVER_EXPORTED, this);
     }
 
     @Override

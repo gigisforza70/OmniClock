@@ -121,7 +121,7 @@ public class Screensaver extends DreamService {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        registerReceiver(mIntentReceiver, filter);
+        Utils.registerReceiver(mIntentReceiver, filter, RECEIVER_EXPORTED, this);
         Utils.setMidnightUpdater(mHandler, mMidnightUpdater);
 
         mHandler.post(mMoveSaverRunnable);

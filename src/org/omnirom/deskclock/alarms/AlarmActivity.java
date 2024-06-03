@@ -284,7 +284,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         final IntentFilter filter = new IntentFilter(AlarmConstants.ALARM_DONE_ACTION);
         filter.addAction(AlarmConstants.ALARM_MEDIA_ACTION);
 
-        registerReceiver(mReceiver, filter);
+        Utils.registerReceiver(mReceiver, filter, RECEIVER_NOT_EXPORTED, this);
 
         if (getResources().getBoolean(org.omnirom.deskclock.R.bool.config_disableSensorOnWirelessCharging)) {
             Intent chargingIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
