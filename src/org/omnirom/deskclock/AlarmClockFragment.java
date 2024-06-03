@@ -18,11 +18,9 @@ package org.omnirom.deskclock;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import androidx.loader.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import androidx.loader.content.Loader;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -33,6 +31,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
@@ -61,6 +60,8 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 
 import org.omnirom.deskclock.alarms.AlarmStateManager;
 import org.omnirom.deskclock.alarms.TimePickerDialogFragment;
@@ -1314,10 +1315,15 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
     private void checkStoragePermissions(Runnable runAfter) {
         boolean needRequest = false;
-        String[] permissions = {
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
-        };
+        String[] permissions;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            permissions = new String[] {android.Manifest.permission.READ_MEDIA_AUDIO};
+        } else {
+            permissions = new String[] {
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+            };
+        }
         ArrayList<String> permissionList = new ArrayList<String>();
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {

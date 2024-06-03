@@ -24,6 +24,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Outline;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -662,10 +663,15 @@ public class DeskClock extends AppCompatActivity implements LabelDialogFragment.
 
     private void checkStoragePermissions() {
         boolean needRequest = false;
-        String[] permissions = {
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
-        };
+        String[] permissions;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            permissions = new String[] {android.Manifest.permission.READ_MEDIA_AUDIO};
+        } else {
+            permissions = new String[] {
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+            };
+        }
         final ArrayList<String> permissionList = new ArrayList<String>();
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {

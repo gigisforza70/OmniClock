@@ -28,6 +28,7 @@ import android.graphics.PorterDuff;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -1497,10 +1498,15 @@ public class BrowseActivity extends AppCompatActivity implements SearchView.OnQu
 
     private void checkStoragePermissions() {
         boolean needRequest = false;
-        String[] permissions = {
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
-        };
+        String[] permissions;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            permissions = new String[] {android.Manifest.permission.READ_MEDIA_AUDIO};
+        } else {
+            permissions = new String[] {
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+            };
+        }
         ArrayList<String> permissionList = new ArrayList<String>();
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
