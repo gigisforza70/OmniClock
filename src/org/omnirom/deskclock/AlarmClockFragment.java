@@ -26,7 +26,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.DataSetObserver;
-import android.graphics.PorterDuff;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -50,7 +49,6 @@ import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -70,6 +68,7 @@ import org.omnirom.deskclock.provider.AlarmInstance;
 import org.omnirom.deskclock.provider.DaysOfWeek;
 import org.omnirom.deskclock.widget.ActionableToastBar;
 import org.omnirom.deskclock.widget.ExpandAnimation;
+import org.omnirom.deskclock.widget.LabeledSwitch;
 import org.omnirom.deskclock.widget.TextTime;
 
 import java.text.DateFormatSymbols;
@@ -322,10 +321,14 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 mAddedAlarm = a;
                 asyncAddAlarm(a, true);
             } else {
-                // only change time but nothing else
+                // only change time and enable but nothing else
                 if (mSelectedAlarm.hour != hourOfDay || mSelectedAlarm.minutes != minute) {
                     mSelectedAlarm.hour = hourOfDay;
                     mSelectedAlarm.minutes = minute;
+                    if (!mSelectedAlarm.enabled) {
+                        mSelectedAlarm.enabled = true;
+
+                    }
                     asyncUpdateAlarm(mSelectedAlarm, true);
                     mSelectedAlarm = null;
                 }
@@ -425,7 +428,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             CheckBox alarmtone;
             TextView prealarmRingtone;
             ImageButton clone;
-            ImageView alarmInidicator;
+            LabeledSwitch onOff;
             View alarmContainer;
             // Other states
             Alarm alarm;
@@ -524,7 +527,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             holder.alarmtone = (CheckBox) view.findViewById(R.id.alarm_select);
             holder.prealarmRingtone = (TextView) view.findViewById(R.id.prealarm_choose_ringtone);
             holder.clone = (ImageButton) view.findViewById(R.id.clone);
-            holder.alarmInidicator = (ImageView) view.findViewById(R.id.alarm_inidicator);
+            holder.onOff = (LabeledSwitch) view.findViewById(R.id.alarm_switch);
             holder.alarmContainer = view.findViewById(R.id.alarm_container);
             view.setTag(holder);
         }
@@ -545,27 +548,20 @@ public class AlarmClockFragment extends DeskClockFragment implements
             itemHolder.clock.setFormat((int) (itemHolder.clock.getTextSize() / 3), 0);
             itemHolder.clock.setTime(alarm.hour, alarm.minutes);
             itemHolder.clock.setClickable(true);
-            itemHolder.clock.setOnLongClickListener(new View.OnLongClickListener() {
+            itemHolder.clock.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onLongClick(View view) {
+                public void onClick(View view) {
                     mSelectedAlarm = itemHolder.alarm;
                     mCloneAlarm = false;
                     AlarmUtils.showTimeEditDialog(AlarmClockFragment.this, alarm);
-                    return true;
                 }
             });
-            itemHolder.clock.setOnClickListener(new View.OnClickListener() {
+            itemHolder.onOff.setOn(alarm.enabled);
+            itemHolder.onOff.setColorOff(Utils.getViewBackgroundColor(context));
+            itemHolder.onOff.setOnToggledListener(new LabeledSwitch.OnToggledListener() {
                 @Override
-                public void onClick(View v) {
-                    alarm.enabled = !alarm.enabled;
-                    setEnabledState(itemHolder, alarm.enabled);
-                    asyncUpdateAlarm(alarm, alarm.enabled);
-                }
-            });
-            itemHolder.alarmInidicator.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    alarm.enabled = !alarm.enabled;
+                public void onSwitched(LabeledSwitch toggleableView, boolean isOn) {
+                    alarm.enabled = isOn;
                     setEnabledState(itemHolder, alarm.enabled);
                     asyncUpdateAlarm(alarm, alarm.enabled);
                 }
@@ -905,17 +901,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
         private void setEnabledState(ItemHolder holder, boolean enabled) {
             if (enabled) {
                 holder.clock.setTextColor(getResources().getColor(R.color.primary));
-                holder.alarmInidicator.setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_IN);
-                holder.alarmInidicator.setImageResource(R.drawable.ic_alarm);
             } else {
                 if (Utils.isLightTheme(mContext)) {
                     holder.clock.setTextColor(getResources().getColor(R.color.black_30p));
-                    holder.alarmInidicator.setColorFilter(getResources().getColor(R.color.black_30p), PorterDuff.Mode.SRC_IN);
                 } else {
                     holder.clock.setTextColor(getResources().getColor(R.color.white_30p));
-                    holder.alarmInidicator.setColorFilter(getResources().getColor(R.color.white_30p), PorterDuff.Mode.SRC_IN);
                 }
-                holder.alarmInidicator.setImageResource(R.drawable.ic_alarm_off);
             }
         }
 
@@ -1196,12 +1187,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                                     }
                                 }
                             }
-                            if (!hintShown) {
-                                AlarmUtils.popFirstAlarmCreatedToast(context);
-                                prefs.edit().putBoolean(PREF_KEY_ALARM_HINT_SHOWN, true).commit();
-                            } else {
-                                AlarmUtils.popAlarmSetToast(context, instance.getAlarmTime().getTimeInMillis());
-                            }
+                            AlarmUtils.popAlarmSetToast(context, instance.getAlarmTime().getTimeInMillis());
                         }
                     }
                 };

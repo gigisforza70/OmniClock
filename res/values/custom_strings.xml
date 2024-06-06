@@ -120,7 +120,6 @@
     <string name="audio_stream_title">Audio stream for local alarm sounds</string>
     <string name="audio_stream_music">Music stream</string>
     <string name="audio_stream_alam">Alarm stream</string>
-    <string name="first_alarm_created_hint">Tap alarm time to toggle. Long-press to edit alarm time.</string>
     <string name="menu_item_version">Version info</string>
     <string name="editor_contentshint">Enter text here</string>
     <string name="editor_save">Save changes</string>

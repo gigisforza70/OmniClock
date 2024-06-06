@@ -38,30 +38,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingTop="7dp"
                 android:paddingEnd="@dimen/alarm_side_padding"
                 android:paddingStart="@dimen/alarm_side_padding">
 
-                <ImageView
-                    android:id="@+id/alarm_inidicator"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_gravity="center_vertical"
-                    android:scaleType="fitXY"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    dc:srcCompat="@drawable/ic_alarm"/>
-
-                <org.omnirom.deskclock.widget.TextTime
-                    android:id="@+id/digital_clock"
+                <org.omnirom.deskclock.widget.LabeledSwitch
+                    android:id="@+id/alarm_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:paddingStart="10dip"
-                    style="@style/TextAppearanceAlarmTime" />
+                    android:layout_gravity="top|start" />
 
                 <Space
                     android:layout_width="0dip"
@@ -79,6 +69,20 @@
                     dc:srcCompat="@drawable/ic_expand_down" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_divider_material" />
+
+            <org.omnirom.deskclock.widget.TextTime
+                android:id="@+id/digital_clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:paddingStart="10dip"
+                style="@style/TextAppearanceAlarmTime" />
 
 
             <LinearLayout

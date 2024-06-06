@@ -117,12 +117,6 @@ public class AlarmUtils {
         toast.show();
     }
 
-    public static void popFirstAlarmCreatedToast(Context context) {
-        Toast toast = Toast.makeText(context, R.string.first_alarm_created_hint, Toast.LENGTH_LONG);
-        ToastMaster.setToast(toast);
-        toast.show();
-    }
-
     public static void popNoDefaultAlarmSoundToast(Context context) {
         Toast toast = Toast.makeText(context, R.string.no_alarm_sound_hint, Toast.LENGTH_LONG);
         ToastMaster.setToast(toast);
