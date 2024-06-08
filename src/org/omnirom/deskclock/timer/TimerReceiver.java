@@ -99,6 +99,18 @@ public class TimerReceiver extends BroadcastReceiver {
 
         TimerObj t = Timers.findTimer(mTimers, timerId);
 
+        if (Timers.START_TIMER.equals(actionType)) {
+            Log.i(TAG, "start Timer");
+            if (t.mTimeLeft < (5000L)) {
+                actionType = Timers.TIMES_UP;
+                try {
+                    Thread.sleep(t.mTimeLeft);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
         if (Timers.TIMES_UP.equals(actionType)) {
             // Find the timer (if it doesn't exists, it was probably deleted).
             if (t == null) {
