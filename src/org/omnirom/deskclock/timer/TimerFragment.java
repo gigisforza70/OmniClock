@@ -322,7 +322,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         } else {
             t.writeToSharedPref(mPrefs);
         }
-        final Intent i = new Intent();
+        final Intent i = new Intent(getActivity(), TimerReceiver.class);
         i.setAction(action);
         i.putExtra(Timers.TIMER_INTENT_EXTRA, t.mTimerId);
         // Make sure the receiver is getting the intent ASAP.
