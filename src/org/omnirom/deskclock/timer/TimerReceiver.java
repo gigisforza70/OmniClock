@@ -24,6 +24,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -102,12 +103,13 @@ public class TimerReceiver extends BroadcastReceiver {
         if (Timers.START_TIMER.equals(actionType)) {
             Log.i(TAG, "start Timer");
             if (t.mTimeLeft < (5000L)) {
-                actionType = Timers.TIMES_UP;
-                try {
-                    Thread.sleep(t.mTimeLeft);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                new Handler().postDelayed(new Runnable() {
+                    public void run () {
+                        Intent i = new Intent(Timers.TIMES_UP);
+                        i.putExtra(Timers.TIMER_INTENT_EXTRA, t.mTimerId);
+                        onReceive(context, i);
+                    }
+                }, t.mTimeLeft);
             }
         }
 
